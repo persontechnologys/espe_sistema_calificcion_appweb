@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AcademicPeriodController;
 use App\Http\Controllers\Admin\AcademicPeriodStatusController;
+use App\Http\Controllers\Admin\AuditLogController;
 use App\Http\Controllers\Admin\CourseOfferingController;
 use App\Http\Controllers\Admin\EnrollmentController;
 use App\Http\Controllers\Admin\GradeCorrectionController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
@@ -23,6 +25,10 @@ Route::middleware('guest')->group(function () {
 Route::middleware(['auth', 'active'])->group(function () {
     Route::post('/logout', [LoginController::class, 'destroy'])->name('logout');
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    // Reportes: el docente solo ve sus ofertas (scope visibleTo + Policy view).
+    Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
+    Route::get('/reports/offerings/{offering}', [ReportController::class, 'show'])->name('reports.show');
 
     // Planilla del docente. Autorización por Policy (docente actual de la oferta).
     // scopeBindings: {enrollment} debe pertenecer a {offering}; si no, 404.
@@ -51,5 +57,6 @@ Route::middleware(['auth', 'active'])->group(function () {
             ->name('enrollments.correction.edit');
         Route::put('enrollments/{enrollment}/correction', [GradeCorrectionController::class, 'update'])
             ->name('enrollments.correction.update');
+        Route::get('audit-logs', [AuditLogController::class, 'index'])->name('audit-logs.index');
     });
 });
