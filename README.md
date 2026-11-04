@@ -137,3 +137,4 @@ Lista completa en [CLAUDE.md §18](CLAUDE.md).
 ## Despliegue
 
 Guía paso a paso para cPanel: [docs/despliegue-cpanel.md](docs/despliegue-cpanel.md).
+# espe_sistema_calificcion_appweb
