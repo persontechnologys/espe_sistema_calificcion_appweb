@@ -1,0 +1,222 @@
+# Evidencia: php artisan test
+# Fecha: 2026-11-04 18:09 -05
+# PHP 8.5.4 CLI · Laravel 13.40.0 · PostgreSQL 18.6 (base espe_test)
+# Commit: afe0e6e
+# MySQL 8: se ejecuta en GitHub Actions (.github/workflows/tests.yml)
+
+
+   PASS  Tests\Unit\GradeCalculatorTest
+  ✓ aprueba con 42 exactos
+  ✓ aprueba aunque un parcial sea menor a 14
+  ✓ reprueba con menos de 42
+  ✓ total 41 99 muestra promedio 14 00 y reprueba
+  ✓ suma exacta de decimales sin error de punto flotante
+  ✓ valores limite 0 y 20
+  ✓ cero es nota valida y null es pendiente
+  ✓ sin ningun parcial es incompleto
+  ✓ no redondea parciales antes de sumar
+  ✓ redondeo de presentacion del promedio with data set "0,01/3 = 0,0033 -> 0,00"
+  ✓ redondeo de presentacion del promedio with data set "0,02/3 = 0,0067 -> 0,01"
+  ✓ redondeo de presentacion del promedio with data set "50/3 = 16,6667 -> 16,67"
+  ✓ redondeo de presentacion del promedio with data set "41,98/3 = 13,9933 -> 13,99"
+  ✓ redondeo de presentacion del promedio with data set "42,01/3 = 14,0033 -> 14,00"
+  ✓ rechaza valores invalidos with data set "negativo"
+  ✓ rechaza valores invalidos with data set "mayor a 20"
+  ✓ rechaza valores invalidos with data set "muy grande"
+  ✓ rechaza valores invalidos with data set "tres decimales"
+  ✓ rechaza valores invalidos with data set "texto"
+  ✓ rechaza valores invalidos with data set "coma decimal"
+  ✓ rechaza valores invalidos with data set "vacío"
+  ✓ exige exactamente tres parciales
+
+   PASS  Tests\Feature\Admin\AcademicPeriodManagementTest
+  ✓ crea periodo planificado y compone la etiqueta                       0.52s  
+  ✓ no acepta el estado desde el formulario                              0.03s  
+  ✓ rechaza fecha fin anterior al inicio                                 0.02s  
+  ✓ rechaza codigo duplicado                                             0.03s  
+  ✓ abre y cierra el periodo en orden                                    0.03s  
+  ✓ no permite reabrir un periodo cerrado                                0.03s  
+  ✓ no permite saltar de planificado a cerrado                           0.02s  
+  ✓ el docente no puede cambiar el estado                                0.03s  
+
+   PASS  Tests\Feature\Admin\AdminAccessTest
+  ✓ el administrador accede with data set #0                             0.03s  
+  ✓ el administrador accede with data set #1                             0.02s  
+  ✓ el administrador accede with data set #2                             0.02s  
+  ✓ el administrador accede with data set #3                             0.02s  
+  ✓ el administrador accede with data set #4                             0.02s  
+  ✓ el administrador accede with data set #5                             0.02s  
+  ✓ el administrador accede with data set #6                             0.03s  
+  ✓ el administrador accede with data set #7                             0.02s  
+  ✓ el administrador accede with data set #8                             0.03s  
+  ✓ el administrador accede with data set #9                             0.03s  
+  ✓ el docente recibe 403 with data set #0                               0.02s  
+  ✓ el docente recibe 403 with data set #1                               0.02s  
+  ✓ el docente recibe 403 with data set #2                               0.02s  
+  ✓ el docente recibe 403 with data set #3                               0.02s  
+  ✓ el docente recibe 403 with data set #4                               0.02s  
+  ✓ el docente recibe 403 with data set #5                               0.02s  
+  ✓ el docente recibe 403 with data set #6                               0.02s  
+  ✓ el docente recibe 403 with data set #7                               0.02s  
+  ✓ el docente recibe 403 with data set #8                               0.02s  
+  ✓ el docente recibe 403 with data set #9                               0.02s  
+  ✓ el docente no puede crear registros por post directo                 0.03s  
+
+   PASS  Tests\Feature\Admin\AuditLogViewTest
+  ✓ el administrador consulta y filtra la auditoria                      0.07s  
+  ✓ el docente no accede a la auditoria                                  0.02s  
+
+   PASS  Tests\Feature\Admin\CourseOfferingManagementTest
+  ✓ crea oferta con aula y campus opcionales                             0.03s  
+  ✓ rechaza nrc repetido en el mismo periodo                             0.03s  
+  ✓ permite nrc repetido en otro periodo                                 0.03s  
+  ✓ rechaza asignar un usuario que no es docente                         0.03s  
+  ✓ rechaza asignar un docente inactivo                                  0.03s  
+  ✓ rechaza relaciones inexistentes                                      0.03s  
+  ✓ reasigna el docente                                                  0.04s  
+  ✓ no permite mover de periodo una oferta con matriculas                0.03s  
+  ✓ rechaza borrar oferta con matriculas                                 0.03s  
+  ✓ filtra por periodo y asignatura                                      0.04s  
+
+   PASS  Tests\Feature\Admin\EnrollmentTest
+  ✓ matricula un estudiante                                              0.03s  
+  ✓ matricula duplicada es rechazada con mensaje                         0.03s  
+  ✓ matricula de estudiante inexistente o inactivo es rechazada          0.03s  
+  ✓ matricula en periodo cerrado es rechazada                            0.03s  
+  ✓ matricula en periodo planificado es permitida                        0.03s  
+  ✓ elimina matricula sin notas                                          0.03s  
+  ✓ no elimina matricula con notas                                       0.03s  
+  ✓ no elimina una matricula a traves de otra oferta                     0.03s  
+  ✓ la ficha de la oferta y del estudiante muestran las notas            0.04s  
+
+   PASS  Tests\Feature\Admin\StudentManagementTest
+  ✓ crea estudiante con id como texto normalizado                        0.03s  
+  ✓ conserva ceros iniciales del id                                      0.02s  
+  ✓ rechaza id institucional duplicado                                   0.02s  
+  ✓ el correo es opcional pero debe ser valido                           0.03s  
+  ✓ rechaza borrar estudiante matriculado                                0.03s  
+
+   PASS  Tests\Feature\Admin\SubjectManagementTest
+  ✓ crea asignatura normalizando el codigo                               0.03s  
+  ✓ rechaza codigo duplicado que solo difiere en mayusculas              0.02s  
+  ✓ valida campos obligatorios                                           0.02s  
+  ✓ actualiza conservando su propio codigo                               0.02s  
+  ✓ borra asignatura sin dependencias                                    0.02s  
+  ✓ rechaza borrar asignatura con ofertas con mensaje comprensible       0.03s  
+  ✓ la busqueda no distingue mayusculas                                  0.03s  
+
+   PASS  Tests\Feature\Admin\UserManagementTest
+  ✓ crea docente con contrasena hasheada                                 0.03s  
+  ✓ docente sin id institucional es rechazado                            0.02s  
+  ✓ administrador puede no tener id institucional                        0.03s  
+  ✓ rechaza id institucional de docente duplicado                        0.02s  
+  ✓ rechaza rol desconocido                                              0.02s  
+  ✓ exige contrasena robusta y confirmada                                0.03s  
+  ✓ el administrador restablece la contrasena                            0.03s  
+  ✓ editar sin contrasena no la cambia                                   0.03s  
+  ✓ el administrador no puede desactivarse ni quitarse el rol            0.02s  
+  ✓ docente con ofertas no puede cambiar de rol                          0.03s  
+  ✓ rechaza borrar docente con ofertas                                   0.03s  
+  ✓ filtra por rol                                                       0.03s  
+
+   PASS  Tests\Feature\Auth\AuthenticationTest
+  ✓ muestra el formulario de inicio de sesion                            0.02s  
+  ✓ invitado es redirigido al login                                      0.02s  
+  ✓ inicia sesion con credenciales validas                               0.03s  
+  ✓ rechaza contrasena incorrecta                                        0.23s  
+  ✓ usuario inactivo no puede iniciar sesion                             0.06s  
+  ✓ usuario desactivado con sesion abierta pierde el acceso              0.03s  
+  ✓ limita los intentos de inicio de sesion                              1.06s  
+  ✓ cierra sesion e invalida la sesion                                   0.05s  
+  ✓ logout por get no esta permitido                                     0.12s  
+
+   PASS  Tests\Feature\Auth\RoleMiddlewareTest
+  ✓ administrador accede a rutas de administracion                       0.02s  
+  ✓ docente recibe 403 en rutas de administracion                        0.02s  
+
+   PASS  Tests\Feature\DemoSeederTest
+  ✓ exige contrasena de demo                                             0.02s  
+  ✓ crea los casos de la demostracion                                    0.09s  
+  ✓ no duplica datos si se ejecuta dos veces                             0.09s  
+
+   PASS  Tests\Feature\Grades\AdminCorrectionTest
+  ✓ corrige con motivo en periodo cerrado y audita como correccion       0.06s  
+  ✓ correccion sin motivo es rechazada                                   0.03s  
+  ✓ correccion en periodo planificado es rechazada                       0.03s  
+  ✓ el docente no puede usar la correccion                               0.03s  
+  ✓ el docente de la oferta no modifica en periodo cerrado               0.03s  
+
+   PASS  Tests\Feature\Grades\GradeServiceTest
+  ✓ el docente registra notas y se calcula el resultado                  0.04s  
+  ✓ el registro crea auditoria con valores anteriores y nuevos           0.04s  
+  ✓ guardar sin cambios no audita ni cambia la version                   0.03s  
+  ✓ parciales pendientes se guardan como null y el registro es incomple… 0.03s  
+  ✓ rechaza valores fuera de rango o con mas de dos decimales            0.03s  
+  ✓ otro docente no puede registrar en una oferta ajena                  0.03s  
+  ✓ el docente reasignado pierde el acceso                               0.03s  
+  ✓ el docente no registra en periodo planificado                        0.03s  
+  ✓ el docente no registra en periodo cerrado                            0.03s  
+  ✓ el administrador corrige con motivo en periodo cerrado               0.03s  
+  ✓ la correccion sin motivo es rechazada                                0.03s  
+  ✓ la correccion no se permite en periodo planificado                   0.03s  
+  ✓ un docente no puede usar la correccion                               0.03s  
+  ✓ el administrador no usa el registro ordinario                        0.03s  
+  ✓ bloqueo optimista rechaza una version desactualizada                 0.04s  
+  ✓ crear cuando ya existe registro es conflicto                         0.03s  
+  ✓ si falla la auditoria no se guarda la nota                           0.03s  
+  ✓ la auditoria no se puede modificar ni borrar desde la aplicacion     0.03s  
+
+   PASS  Tests\Feature\Grades\TeacherGradingTest
+  ✓ el docente ve su planilla                                            0.04s  
+  ✓ el docente ve solo sus ofertas en el inicio                          0.03s  
+  ✓ el docente no ve la planilla de una oferta ajena                     0.03s  
+  ✓ el administrador no usa la planilla del docente                      0.03s  
+  ✓ registra notas con coma o punto decimal y muestra el calculo         0.04s  
+  ✓ ignora promedio total y estado enviados por el cliente               0.03s  
+  ✓ acepta los limites 0 y 20                                            0.03s  
+  ✓ rechaza valores invalidos sin guardar                                0.05s  
+  ✓ un parcial vacio queda pendiente                                     0.04s  
+  ✓ el docente no modifica notas de una oferta ajena                     0.03s  
+  ✓ no acepta una matricula de otra oferta en la url de la propia        0.03s  
+  ✓ el docente reasignado pierde el acceso a la oferta                   0.03s  
+  ✓ registro bloqueado en periodo cerrado y planificado                  0.05s  
+  ✓ conflicto de bloqueo optimista se informa al usuario                 0.04s  
+  ✓ usuario inactivo no puede registrar notas                            0.03s  
+
+   PASS  Tests\Feature\Reports\ReportTest
+  ✓ muestra encabezado y detalle del reporte                             0.05s  
+  ✓ muestra promedio total y estado incluido el caso 41 99               0.04s  
+  ✓ los incompletos muestran guion y el resumen los cuenta               0.04s  
+  ✓ el docente no ve el reporte de una oferta ajena                      0.04s  
+  ✓ el listado del docente solo incluye sus ofertas                      0.04s  
+  ✓ el administrador ve cualquier reporte                                0.04s  
+  ✓ filtra por periodo asignatura y nrc                                  0.05s  
+
+   PASS  Tests\Feature\SchemaConstraintsTest
+  ✓ id institucional de estudiante es unico sin importar mayusculas      0.02s  
+  ✓ id institucional de docente es unico                                 0.02s  
+  ✓ varios administradores pueden no tener id institucional              0.02s  
+  ✓ docente sin id institucional es rechazado por la base de datos       0.02s  
+  ✓ rol desconocido es rechazado por la base de datos                    0.02s  
+  ✓ codigo de asignatura es unico                                        0.02s  
+  ✓ nrc repetido en el mismo periodo es rechazado                        0.02s  
+  ✓ nrc repetido en otro periodo es permitido                            0.03s  
+  ✓ matricula duplicada es rechazada                                     0.03s  
+  ✓ matricula con relaciones inexistentes es rechazada                   0.02s  
+  ✓ solo un registro de notas por matricula                              0.03s  
+  ✓ la base de datos rechaza parciales fuera de rango                    0.03s  
+  ✓ la base de datos rechaza parciales negativos                         0.03s  
+  ✓ parcial null y parcial cero se almacenan distinto                    0.03s  
+  ✓ no se puede borrar un estudiante con matriculas                      0.03s  
+  ✓ no se puede borrar una oferta con matriculas                         0.02s  
+  ✓ periodo con fecha fin anterior al inicio es rechazado                0.02s  
+
+   PASS  Tests\Feature\SecurityTest
+  ✓ envia cabeceras de seguridad                                         0.03s  
+  ✓ escapa datos del usuario en las vistas                               0.03s  
+  ✓ la busqueda no permite inyeccion sql                                 0.03s  
+  ✓ la pagina 403 esta en espanol                                        0.02s  
+
+  Tests:    176 passed (429 assertions)
+  Duration: 6.54s
+

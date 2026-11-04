@@ -1,58 +1,139 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Gestión Académica ESPE (demostración técnica)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Aplicación web para gestionar estudiantes, docentes, asignaturas, períodos académicos,
+ofertas identificadas por NRC, matrículas y **tres calificaciones parciales** por matrícula,
+con cálculo automático del total y el promedio, la regla de aprobación **total ≥ 42/60**,
+auditoría de cambios y un reporte imprimible inspirado en el formato institucional.
 
-## About Laravel
+> Sistema de demostración. No es un sistema ni un documento oficial de la Universidad de las
+> Fuerzas Armadas - ESPE. Todos los datos de ejemplo (IDs, nombres, NRC) son ficticios.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+El documento rector del proyecto (alcance, reglas y decisiones) es [CLAUDE.md](CLAUDE.md).
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+| Rol | Puede |
+|---|---|
+| **Administrador** | Usuarios y docentes, estudiantes, asignaturas, períodos (abrir/cerrar), ofertas NRC y asignación de docentes, matrículas, reportes, auditoría y **corrección de notas con motivo obligatorio** (incluso en períodos cerrados). |
+| **Docente** | Ver solo sus ofertas, registrar 1P/2P/3P de sus estudiantes mientras el período esté abierto y ver los reportes de sus ofertas. |
 
-## Learning Laravel
+Reglas de calificación (CLAUDE.md §4):
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- Cada parcial va de 0 a 20 y admite hasta dos decimales; se guarda como `DECIMAL(5,2)`.
+- `total = 1P + 2P + 3P` es exacto, porque se calcula con enteros en centésimas y sin `float`.
+- `promedio = total / 3` se redondea a dos decimales **solo para mostrarlo**.
+- **APROBADO** si `total ≥ 42,00`. No hay nota mínima por parcial. El estado se decide sobre el total exacto: con 41,99 el promedio se muestra 14,00 y el estado es REPROBADO.
+- Un parcial vacío se guarda como `NULL` (pendiente) y es distinto de `0,00`. Si falta algún parcial, el registro es **INCOMPLETO**.
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Requisitos
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+- PHP **8.4** o superior, con las extensiones `pdo_pgsql` (local) o `pdo_mysql` (producción), `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `fileinfo` e `intl`.
+- Composer 2.
+- PostgreSQL 13 o superior en local, o MySQL **8.0.16** o superior en producción (las restricciones `CHECK` lo requieren).
+- No se necesita Node.js: Bootstrap 5 se sirve desde `public/vendor/bootstrap`.
 
-## Agentic Development
+`composer.json` fija `config.platform.php = 8.4.0` para que las dependencias sean compatibles con el hosting.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+## Instalación local
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repositorio> espe-academico && cd espe-academico
+composer install
+cp .env.example .env
+php artisan key:generate
+# Edite .env: DB_DATABASE, DB_USERNAME, DB_PASSWORD y DEMO_PASSWORD
+php artisan migrate
+php artisan db:seed          # datos ficticios de demostración
+php artisan serve            # http://localhost:8000
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+### Variables de entorno relevantes
 
-## Contributing
+| Variable | Descripción |
+|---|---|
+| `DB_CONNECTION` | `pgsql` en local y `mysql` en producción |
+| `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` | Conexión a la base de datos |
+| `DEMO_PASSWORD` | Contraseña de los usuarios de demostración (mínimo 8 caracteres). Solo se usa en `db:seed` |
+| `APP_ENV`, `APP_DEBUG` | En producción: `production` y `false` |
+| `SESSION_SECURE_COOKIE` | `true` en producción con HTTPS |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+`.env` no se versiona y `.env.example` no contiene secretos.
 
-## Code of Conduct
+## Usuarios de demostración
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Se crean con `php artisan db:seed`. La contraseña de todos es el valor de `DEMO_PASSWORD`.
 
-## Security Vulnerabilities
+| Correo | Rol | Notas |
+|---|---|---|
+| `admin@demo.test` | Administrador | |
+| `docente1@demo.test` | Docente (D00000101) | NRC 10234 en los períodos 202451 (abierto) y 202450 (cerrado) |
+| `docente2@demo.test` | Docente (D00000102) | NRC 10235; el docente 1 no tiene acceso a esta oferta |
+| `inactivo@demo.test` | Docente inactivo | No puede iniciar sesión |
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Casos preparados en el **NRC 10234, período 202451**:
 
-## License
+| ID | 1P | 2P | 3P | Total | Promedio | Estado | Caso |
+|---|---|---|---|---|---|---|---|
+| L00900001 | 10,00 | 15,00 | 17,00 | 42,00 | 14,00 | APROBADO | Aprueba con 1P < 14 |
+| L00900002 | 10,10 | 15,20 | 16,70 | 42,00 | 14,00 | APROBADO | Suma decimal exacta |
+| L00900003 | 13,99 | 14,00 | 14,00 | 41,99 | 14,00 | REPROBADO | Promedio redondeado engañoso |
+| L00900004 | 20,00 | 20,00 | 20,00 | 60,00 | 20,00 | APROBADO | Máximo |
+| L00900005 | 0,00 | 12,00 | 15,00 | 27,00 | 9,00 | REPROBADO | 0 es una nota registrada |
+| L00900006 | 12,00 | 14,00 | — | — | — | INCOMPLETO | 3P pendiente |
+| L00900007 | — | — | — | — | — | INCOMPLETO | Sin registro de notas |
+| L00900008 | 16,00 | 16,00 | 10,00 | 42,00 | 14,00 | APROBADO | Corregido por el admin (9,99 → 10,00), auditado |
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Los estudiantes L00900009 y L00900010 no están matriculados en el NRC 10234, para hacer la matrícula en vivo.
+
+## Pruebas
+
+```bash
+php artisan test
+```
+
+- La suite usa **PostgreSQL** (base `espe_test`, configurada en `phpunit.xml`). No se usa SQLite porque no reproduce `CHECK`, `DECIMAL` ni los bloqueos.
+- **GitHub Actions** ([.github/workflows/tests.yml](.github/workflows/tests.yml)) ejecuta la suite en **PostgreSQL 16 y MySQL 8.0**. También migra desde una base limpia y ejecuta `migrate:refresh`.
+- Evidencia de la última ejecución local: [docs/evidencia/pruebas-postgresql.txt](docs/evidencia/pruebas-postgresql.txt).
+
+Qué se prueba: cálculo y redondeo (incluidos 41,99 y 10,10 + 15,20 + 16,70), validaciones 0–20 y de dos decimales, NULL frente a 0, restricciones de la base (UNIQUE, CHECK, RESTRICT), NRC único por período, matrículas duplicadas y en períodos cerrados, autorización (oferta ajena, docente reasignado, usuario inactivo, rutas de administración), bloqueo optimista, auditoría en la misma transacción, corrección con y sin motivo, reportes y filtros, seguridad (XSS, búsqueda sin inyección, cabeceras) y seeders.
+
+## Arquitectura
+
+Monolito MVC de Laravel 13 con Blade y Bootstrap 5.
+
+| Capa | Dónde |
+|---|---|
+| Rutas y middleware (`auth`, `active`, `role:admin`) | `routes/web.php`, `app/Http/Middleware` |
+| Validación y normalización de entrada | `app/Http/Requests` |
+| Autorización por registro (docente **actual** de la oferta) | `app/Policies` |
+| Cálculo académico (único) | `app/Services/Grades/GradeCalculator.php` |
+| Escritura de notas: transacción, bloqueos, versión y auditoría | `app/Services/Grades/GradeService.php` |
+| Modelos, relaciones y normalización de códigos | `app/Models` |
+| Esquema versionado | `database/migrations` |
+| Diagrama ER | [docs/diagrama-er.md](docs/diagrama-er.md) |
+
+## Decisiones técnicas principales
+
+Lista completa en [CLAUDE.md §18](CLAUDE.md).
+
+- **Identificadores.** Cada tabla usa un `id` técnico como clave primaria. El ID institucional, el código de asignatura, el código de período y el NRC son texto con `UNIQUE` y se normalizan (`trim` + mayúsculas) para que PostgreSQL y MySQL se comporten igual.
+- **NRC.** `UNIQUE(academic_period_id, nrc)`: es único dentro de un período y puede repetirse en otro.
+- **Docente = `users.role = 'teacher'`**, con `CHECK` que obliga a tener ID institucional. Los estudiantes tienen su propia tabla porque no inician sesión.
+- **Derivados no almacenados.** Total, promedio y estado se calculan a partir de los parciales (3FN; no pueden quedar desactualizados).
+- **Concurrencia.**
+  - `UNIQUE` en matrículas y notas.
+  - Bloqueo compartido de la oferta y del período durante el guardado: no se puede cerrar el período ni reasignar la oferta a mitad de una operación.
+  - `lockForUpdate()` sobre la fila de la nota.
+  - **Bloqueo optimista** con la columna `grades.version`.
+- **Auditoría.** Se escribe en la misma transacción que la nota (si falla, la nota no se guarda), solo admite inserciones y distingue `registro` de `correccion` (esta última con motivo).
+- **Borrado.** Todas las FK son `ON DELETE RESTRICT`; los registros en uso se inactivan.
+- **Seguridad.**
+  - Login con límite de intentos (5 por correo+IP) y regeneración de sesión.
+  - Los usuarios inactivos quedan expulsados aunque tengan una sesión abierta.
+  - CSRF; escape de Blade con `{{ }}`; consultas parametrizadas.
+  - Cabeceras `X-Frame-Options`, `nosniff`, `Referrer-Policy` y HSTS bajo HTTPS.
+  - Páginas de error sin trazas.
+
+## Despliegue
+
+Guía paso a paso para cPanel: [docs/despliegue-cpanel.md](docs/despliegue-cpanel.md).

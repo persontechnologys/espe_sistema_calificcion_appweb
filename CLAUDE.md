@@ -1074,6 +1074,12 @@ técnica, justificada y registrada). No cambian reglas académicas.
   30   Quitar matrícula             Solo sin notas y con período no cerrado,
                                     para corregir errores de digitación. No
                                     es la "anulación" (fuera del alcance).
+  31   Datos de demostración        `DemoSeeder` registra las notas mediante
+                                    `GradeService` (auditoría real); la
+                                    contraseña viene de `DEMO_PASSWORD`.
+  32   Cabeceras de seguridad       `X-Frame-Options`, `nosniff`,
+                                    `Referrer-Policy` y HSTS bajo HTTPS;
+                                    páginas de error propias, sin trazas.
 
 ## 19. Criterios de aceptación global
 
