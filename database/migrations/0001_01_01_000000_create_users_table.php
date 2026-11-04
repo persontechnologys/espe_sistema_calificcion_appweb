@@ -2,30 +2,35 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Usuarios que inician sesión: administradores y docentes.
+ * Un docente es un usuario con role = 'teacher' (no existe tabla teachers).
+ */
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 150);
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            // string + CHECK + enum de PHP (no $table->enum(), que difiere entre motores).
+            $table->string('role', 20);
+            $table->boolean('is_active')->default(true);
+            // ID institucional (texto). NULL permitido para administradores;
+            // UNIQUE admite varios NULL en PostgreSQL y MySQL.
+            $table->string('institutional_id', 20)->nullable()->unique();
             $table->rememberToken();
             $table->timestamps();
         });
 
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
+        // CHECK en SQL estándar: idéntico en PostgreSQL y MySQL 8.0.16+.
+        DB::statement("ALTER TABLE users ADD CONSTRAINT users_role_check CHECK (role IN ('admin', 'teacher'))");
+        DB::statement("ALTER TABLE users ADD CONSTRAINT users_teacher_institutional_id_check CHECK (role <> 'teacher' OR institutional_id IS NOT NULL)");
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
@@ -37,13 +42,9 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('users');
     }
 };
