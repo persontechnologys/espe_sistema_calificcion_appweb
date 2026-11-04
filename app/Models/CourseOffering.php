@@ -6,6 +6,7 @@ use App\Models\Concerns\SearchesText;
 use App\Support\Normalize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,6 +54,21 @@ class CourseOffering extends Model
     public function enrollments(): HasMany
     {
         return $this->hasMany(Enrollment::class);
+    }
+
+    /**
+     * Matrículas con estudiante y notas, ordenadas por apellidos y nombres (carga anticipada: sin N+1).
+     *
+     * @return Collection<int, Enrollment>
+     */
+    public function enrollmentsWithGrades(): Collection
+    {
+        return $this->enrollments()
+            ->with(['student', 'grade'])
+            ->join('students', 'students.id', '=', 'enrollments.student_id')
+            ->orderBy('students.last_names')->orderBy('students.first_names')
+            ->select('enrollments.*')
+            ->get();
     }
 
     /** Ofertas visibles para el usuario: todas para admin, solo las propias para docente. */

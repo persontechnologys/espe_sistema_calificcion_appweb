@@ -30,7 +30,7 @@
     @if ($offering->exists)
         <p class="text-muted small">Si cambia el docente, el anterior pierde el acceso a esta oferta de inmediato. La auditoría conserva quién registró cada nota.</p>
     @endif
-    @include('partials.form-actions', ['cancel' => route('admin.course-offerings.index')])
+    @include('partials.form-actions', ['cancel' => $offering->exists ? route('admin.course-offerings.show', $offering) : route('admin.course-offerings.index')])
 </form>
 </div></div>
 @endsection

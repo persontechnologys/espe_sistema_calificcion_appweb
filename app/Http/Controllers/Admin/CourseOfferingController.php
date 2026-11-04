@@ -47,12 +47,7 @@ class CourseOfferingController extends Controller
     {
         $courseOffering->load(['academicPeriod', 'subject', 'teacher']);
 
-        $enrollments = $courseOffering->enrollments()
-            ->with(['student', 'grade'])
-            ->join('students', 'students.id', '=', 'enrollments.student_id')
-            ->orderBy('students.last_names')->orderBy('students.first_names')
-            ->select('enrollments.*')
-            ->get();
+        $enrollments = $courseOffering->enrollmentsWithGrades();
 
         $availableStudents = Student::query()
             ->where('is_active', true)
@@ -76,7 +71,7 @@ class CourseOfferingController extends Controller
     {
         $offering = CourseOffering::create($request->validated());
 
-        return redirect()->route('admin.course-offerings.index')->with('status', 'Oferta creada.');
+        return redirect()->route('admin.course-offerings.show', $offering)->with('status', 'Oferta creada.');
     }
 
     public function edit(CourseOffering $courseOffering): View
@@ -89,7 +84,7 @@ class CourseOfferingController extends Controller
     {
         $courseOffering->update($request->validated());
 
-        return redirect()->route('admin.course-offerings.index')->with('status', 'Oferta actualizada.');
+        return redirect()->route('admin.course-offerings.show', $courseOffering)->with('status', 'Oferta actualizada.');
     }
 
     public function destroy(CourseOffering $courseOffering): RedirectResponse

@@ -1061,6 +1061,19 @@ técnica, justificada y registrada). No cambian reglas académicas.
                                     PostgreSQL 16 y MySQL 8.0 (matriz).
   27   Carga diferida               `Model::preventLazyLoading()` fuera de
                                     producción: un N+1 falla en pruebas.
+  28   Bloqueos al guardar notas    Oferta y período con bloqueo compartido
+                                    (`sharedLock()`, `FOR SHARE`); fila de
+                                    `grades` con `lockForUpdate()`. Cerrar el
+                                    período o reasignar la oferta exige
+                                    bloqueo exclusivo y espera al guardado;
+                                    varios docentes pueden guardar a la vez.
+  29   Planilla del docente         Un formulario por fila (atributo `form`)
+                                    con su propia versión: un conflicto solo
+                                    afecta a esa matrícula. Se acepta coma o
+                                    punto decimal.
+  30   Quitar matrícula             Solo sin notas y con período no cerrado,
+                                    para corregir errores de digitación. No
+                                    es la "anulación" (fuera del alcance).
 
 ## 19. Criterios de aceptación global
 

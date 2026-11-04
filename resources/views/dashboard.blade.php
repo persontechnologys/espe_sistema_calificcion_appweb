@@ -42,8 +42,11 @@
                     <td>{{ $offering->teacher->name }}</td>
                     <td class="text-end">{{ $offering->enrollments_count }}</td>
                     <td class="text-end text-nowrap">
+                        @if (auth()->user()->isAdmin())
+                            <a class="btn btn-sm btn-outline-success" href="{{ route('admin.course-offerings.show', $offering) }}">Ver</a>
+                        @endif
                         @if (Route::has('offerings.grades.edit'))
-                            @can('viewGrades', $offering)
+                            @can('recordGrades', $offering)
                                 <a class="btn btn-sm btn-outline-success" href="{{ route('offerings.grades.edit', $offering) }}">Calificaciones</a>
                             @endcan
                         @endif

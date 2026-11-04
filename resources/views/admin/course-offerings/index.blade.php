@@ -31,6 +31,7 @@
             <td>{{ $o->classroom ?? '—' }} / {{ $o->campus ?? '—' }}</td>
             <td class="text-end">{{ $o->enrollments_count }}</td>
             <td class="text-end text-nowrap">
+                <a class="btn btn-sm btn-outline-success" href="{{ route('admin.course-offerings.show', $o) }}">Ver</a>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.course-offerings.edit', $o) }}">Editar</a>
                 @include('partials.delete-button', ['action' => route('admin.course-offerings.destroy', $o)])
             </td>

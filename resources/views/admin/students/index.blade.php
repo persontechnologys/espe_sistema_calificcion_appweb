@@ -15,6 +15,7 @@
             <td class="text-end">{{ $student->enrollments_count }}</td>
             <td>@include('partials.active-badge', ['active' => $student->is_active])</td>
             <td class="text-end text-nowrap">
+                <a class="btn btn-sm btn-outline-secondary" href="{{ route('admin.students.show', $student) }}">Calificaciones</a>
                 <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.students.edit', $student) }}">Editar</a>
                 @include('partials.delete-button', ['action' => route('admin.students.destroy', $student)])
             </td>
