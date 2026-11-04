@@ -1024,6 +1024,44 @@ aprobarse y reflejarse aquí y en la sección afectada.
   19   Códigos institucionales      Normalizados (`trim` + mayúsculas)
                                     antes de validar y guardar
 
+### 18.1 Decisiones técnicas de implementación
+
+Tomadas durante la implementación según la regla 2.13 (mejor solución
+técnica, justificada y registrada). No cambian reglas académicas.
+
+  \#   Tema                         Decisión y justificación
+  ---- ---------------------------- ------------------------------------------
+  20   Restricciones `CHECK`        El Schema Builder de Laravel 13 no
+                                    ofrece `check()`. Se añaden con
+                                    `ALTER TABLE ... ADD CONSTRAINT ...
+                                    CHECK (...)` en SQL estándar, idéntico
+                                    en PostgreSQL y MySQL 8.0.16+. Es la
+                                    única excepción a "solo Schema Builder".
+  21   Bloqueo optimista            Columna entera `grades.version` (no
+                                    `updated_at`): `updated_at` tiene
+                                    resolución de segundos y no detecta dos
+                                    guardados en el mismo segundo.
+  22   Cálculo de notas             Enteros en centésimas dentro de
+                                    `GradeCalculator`; no requiere `bcmath`
+                                    en el hosting. Presentación con coma
+                                    decimal (`14,00`).
+  23   Frontend                     Bootstrap 5.3.8 copiado en
+                                    `public/vendor/bootstrap`; sin Vite,
+                                    Tailwind ni Node en cPanel y sin CDN
+                                    (la demo no depende de internet).
+  24   Autenticación                Controlador y Form Request propios sobre
+                                    `Auth` de Laravel, sin Breeze/Fortify:
+                                    solo se necesita login/logout. Límite:
+                                    5 intentos por correo+IP, bloqueo 60 s.
+  25   Tablas omitidas              Sin `password_reset_tokens` (no hay
+                                    recuperación por correo) ni `jobs`
+                                    (`QUEUE_CONNECTION=sync`, sin colas).
+  26   Base de pruebas              PostgreSQL `espe_test` en local;
+                                    GitHub Actions ejecuta la suite en
+                                    PostgreSQL 16 y MySQL 8.0 (matriz).
+  27   Carga diferida               `Model::preventLazyLoading()` fuera de
+                                    producción: un N+1 falla en pruebas.
+
 ## 19. Criterios de aceptación global
 
 El sistema se considerará listo para la demostración cuando:
