@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\PeriodStatus;
+use App\Models\Concerns\SearchesText;
 use App\Support\Normalize;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,7 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AcademicPeriod extends Model
 {
-    use HasFactory;
+    use HasFactory, SearchesText;
 
     // status no es asignable masivamente: solo cambia mediante la acción de transición.
     protected $fillable = ['code', 'description', 'start_date', 'end_date'];

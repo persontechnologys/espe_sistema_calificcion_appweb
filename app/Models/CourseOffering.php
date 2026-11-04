@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SearchesText;
 use App\Support\Normalize;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class CourseOffering extends Model
 {
-    use HasFactory;
+    use HasFactory, SearchesText;
 
     protected $fillable = ['academic_period_id', 'subject_id', 'teacher_id', 'nrc', 'classroom', 'campus'];
 

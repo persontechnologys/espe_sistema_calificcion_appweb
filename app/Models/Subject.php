@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\SearchesText;
 use App\Support\Normalize;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Subject extends Model
 {
-    use HasFactory;
+    use HasFactory, SearchesText;
 
     protected $fillable = ['code', 'name', 'is_active'];
 

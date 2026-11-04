@@ -70,5 +70,12 @@
     Sistema de demostración. No es un documento ni sistema oficial de la Universidad de las Fuerzas Armadas - ESPE.
 </footer>
 <script src="{{ asset('vendor/bootstrap/bootstrap.bundle.min.js') }}"></script>
+<script>
+    // Confirmación de acciones sensibles sin JavaScript inline con datos.
+    document.addEventListener('submit', function (e) {
+        const msg = e.target.dataset && e.target.dataset.confirm;
+        if (msg && !window.confirm(msg)) { e.preventDefault(); }
+    });
+</script>
 </body>
 </html>
