@@ -1,16 +1,21 @@
+{{-- Páginas de error propias: sin trazas ni detalles técnicos (CLAUDE.md §11, decisión 32). --}}
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $code }} · {{ config('app.name') }}</title>
-    <link rel="stylesheet" href="{{ asset('vendor/bootstrap/bootstrap.min.css') }}">
+    <x-layout.head :title="$code.' · '.$title" />
 </head>
-<body class="bg-light">
-<main class="container py-5 text-center" style="max-width: 36rem">
-    <div class="display-4 text-muted">{{ $code }}</div>
-    <h1 class="h4 my-3">{{ $title }}</h1>
-    <p class="text-muted">{{ $message }}</p>
-    <a href="{{ url('/dashboard') }}" class="btn btn-success">Volver al inicio</a>
+<body>
+<main class="error-page">
+    <div class="card error-card">
+        <div class="d-flex justify-content-center mb-3"><x-ui.brand-mark size="lg" /></div>
+        <div class="error-code">{{ $code }}</div>
+        <h1 class="h4 my-3">{{ $title }}</h1>
+        <p class="text-muted">{{ $message }}</p>
+        <div class="d-flex justify-content-center gap-2 flex-wrap">
+            <a href="{{ url('/dashboard') }}" class="btn btn-primary"><i class="bi bi-house-door me-1" aria-hidden="true"></i>Volver al inicio</a>
+        </div>
+    </div>
+    <footer class="auth-footer">Sistema de Gestión Académica · <x-ui.attribution /></footer>
 </main>
 </body>
 </html>

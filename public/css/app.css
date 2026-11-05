@@ -367,6 +367,7 @@ body { -webkit-font-smoothing: antialiased; }
 
 /* 7. Impresión ------------------------------------------------------------ */
 @media print {
+    @page { size: A4 portrait; margin: 12mm; }
     .no-print, .sidebar, .topbar, .toast-stack, .app-footer, .btn, .modal { display: none !important; }
     body { background: #fff; }
     .app-main { margin-left: 0 !important; }
