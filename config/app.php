@@ -90,6 +90,12 @@ return [
     'demo_password' => env('DEMO_PASSWORD'),
 
     /*
+    | Token de la ruta /init (inicialización en hosting sin terminal).
+    | Vacío o con menos de 32 caracteres = ruta desactivada (responde 404).
+    */
+    'init_token' => env('INIT_TOKEN'),
+
+    /*
     |--------------------------------------------------------------------------
     | Encryption Key
     |--------------------------------------------------------------------------

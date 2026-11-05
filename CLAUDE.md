@@ -1080,6 +1080,17 @@ técnica, justificada y registrada). No cambian reglas académicas.
   32   Cabeceras de seguridad       `X-Frame-Options`, `nosniff`,
                                     `Referrer-Policy` y HSTS bajo HTTPS;
                                     páginas de error propias, sin trazas.
+  33   Despliegue (responsable)     Subdominio con Document Root en la
+                                    carpeta del proyecto; `.htaccess` raíz
+                                    reescribe a `public/` (sin `<IfModule>`)
+                                    y bloquea `.git`, `.env` y archivos
+                                    internos. Decisión del responsable.
+  34   Ruta `/init`                 Para hosting sin terminal: token
+                                    `INIT_TOKEN` (≥ 32 caracteres, 404 si no
+                                    coincide), lista fija de comandos no
+                                    destructivos, límite 5/min. No cachea la
+                                    configuración: vaciar el token la
+                                    desactiva de inmediato.
 
 ## 19. Criterios de aceptación global
 

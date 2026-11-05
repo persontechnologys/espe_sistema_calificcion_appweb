@@ -12,10 +12,14 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GradeController;
+use App\Http\Controllers\InitController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
 
 Route::redirect('/', '/dashboard');
+
+// Inicialización en hosting sin terminal (token en INIT_TOKEN; ver InitController).
+Route::get('/init', InitController::class)->middleware('throttle:5,1')->name('init');
 
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'create'])->name('login');

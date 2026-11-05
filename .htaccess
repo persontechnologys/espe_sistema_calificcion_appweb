@@ -1,0 +1,12 @@
+# Raíz del proyecto (Document Root del subdominio). Todo se sirve desde public/.
+# Sin <IfModule>: si faltara mod_rewrite, Apache da error 500 en lugar de exponer archivos.
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+RewriteRule ^(.*)$ public/$1 [L]
+
+# Defensa en profundidad: bloquea archivos sensibles aunque falle la reescritura.
+RedirectMatch 404 /\.git(/|$)
+<FilesMatch "^(\.env.*|composer\.(json|lock)|artisan|phpunit\.xml|.*\.md|.*\.log)$">
+    Require all denied
+</FilesMatch>

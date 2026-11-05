@@ -98,6 +98,17 @@ php artisan db:seed --force       # solo para el entorno de demostración
 
 **No** ejecute `migrate:fresh`, `migrate:refresh`, `db:wipe` ni `migrate:rollback` en producción.
 
+## 6-bis. Sin terminal: ruta `/init`
+
+Si no puede usar SSH para los pasos 6 y 7:
+
+1. En el `.env` del servidor, defina `INIT_TOKEN` con al menos 32 caracteres aleatorios.
+2. Abra `https://espe.tudominio.com/init?token=SU_TOKEN`. Para cargar también los datos de demostración, añada `&seed=1`.
+3. La página muestra la salida de `optimize:clear`, `migrate --force`, `db:seed` (si se pidió), `route:cache` y `view:cache`.
+4. Al terminar, **vacíe `INIT_TOKEN`** en `.env`: la ruta queda desactivada y responde 404.
+
+La ruta no acepta comandos del cliente y nunca ejecuta `migrate:fresh`, `db:wipe` ni `rollback`.
+
 ## 7. Optimización
 
 ```bash
