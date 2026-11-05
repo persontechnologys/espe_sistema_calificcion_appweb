@@ -5,6 +5,9 @@ En progreso (WIP = 1) · En revisión · En pruebas · Terminado.
 
 Para relacionar cada commit con su tarjeta, cree un *issue* por tarjeta (`T01`…) y enlácelo con los hashes indicados.
 
+Incrementos: 1 Base (T01–T06) · 2 Administración (T07–T09) · 3 Matrículas y notas (T10–T13) ·
+4 Reportes y cierre (T14–T20) · Rediseño de interfaz (T21).
+
 ## Terminado
 
 | # | Tarea | Criterios de aceptación | Evidencia | Commits |
@@ -26,13 +29,7 @@ Para relacionar cada commit con su tarjeta, cree un *issue* por tarjeta (`T01`�
 | T15 | Vista de auditoría | Filtros por operación, estudiante y NRC; solo admin | `AuditLogViewTest` | 499d576 |
 | T16 | Seeders de demo | Casos 42,00 / 41,99 / incompleto / corrección | `DemoSeederTest` | 6d9fee0 |
 | T17 | Revisión de seguridad | Sin `{!! !!}`; cabeceras; CSRF 419; `composer audit` limpio | `SecurityTest` | afe0e6e |
-| T18 | Documentación | README, guía de cPanel, guion de demo, evidencia de pruebas | `docs/` | (commit de docs) |
-
-## Por hacer (requieren acceso del responsable)
-
-| # | Tarea | Criterios de aceptación | Dependencias |
-|---|---|---|---|
-| T19 | Publicar el repositorio y ejecutar la CI | GitHub Actions en verde en PostgreSQL **y MySQL 8** | Repositorio remoto |
-| T20 | Despliegue en cPanel | Checklist de `docs/despliegue-cpanel.md` §9 completo con HTTPS | T19 |
-| T21 | Video de respaldo | Recorrido completo de `docs/guion-demo.md` grabado (≤ 10 min) | T20 o entorno local |
-| T22 | Ensayo de la demo | Dos ensayos cronometrados; pestañas preparadas | T21 |
+| T18 | Documentación | README, guía de cPanel, guion de demo, evidencia de pruebas | `docs/` | 87e7f3c |
+| T19 | Repositorio y CI | GitHub Actions en verde en PostgreSQL **y MySQL 8** | `.github/workflows/tests.yml` | 8d2e459 |
+| T20 | Despliegue en cPanel | Rama `deploy` con vendor de producción; `/init` con token; Document Root y `.htaccess`; HTTPS | `docs/despliegue-cpanel.md` §9 | e4ca574, 29dc9f9, dc821a4 |
+| T21 | Rediseño de interfaz | Sistema de diseño, sidebar, dashboard, planilla, reportes; paleta verde con contraste AA | Especificación, decisiones 35–45 | a135b79 … daca4c7 |

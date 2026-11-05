@@ -8,7 +8,7 @@ auditoría de cambios y un reporte imprimible inspirado en el formato institucio
 > Sistema de demostración. No es un sistema ni un documento oficial de la Universidad de las
 > Fuerzas Armadas - ESPE. Todos los datos de ejemplo (IDs, nombres, NRC) son ficticios.
 
-El documento rector del proyecto (alcance, reglas y decisiones) es [CLAUDE.md](CLAUDE.md).
+El documento rector del proyecto (alcance, reglas y decisiones) es [docs/especificacion.md](docs/especificacion.md).
 
 ## Funcionalidades
 
@@ -17,7 +17,7 @@ El documento rector del proyecto (alcance, reglas y decisiones) es [CLAUDE.md](C
 | **Administrador** | Usuarios y docentes, estudiantes, asignaturas, períodos (abrir/cerrar), ofertas NRC y asignación de docentes, matrículas, reportes, auditoría y **corrección de notas con motivo obligatorio** (incluso en períodos cerrados). |
 | **Docente** | Ver solo sus ofertas, registrar 1P/2P/3P de sus estudiantes mientras el período esté abierto y ver los reportes de sus ofertas. |
 
-Reglas de calificación (CLAUDE.md §4):
+Reglas de calificación (especificación §4):
 
 - Cada parcial va de 0 a 20 y admite hasta dos decimales; se guarda como `DECIMAL(5,2)`.
 - `total = 1P + 2P + 3P` es exacto, porque se calcula con enteros en centésimas y sin `float`.
@@ -115,7 +115,7 @@ Monolito MVC de Laravel 13 con Blade y Bootstrap 5.
 
 ## Decisiones técnicas principales
 
-Lista completa en [CLAUDE.md §18](CLAUDE.md).
+Lista completa en [especificación §18](docs/especificacion.md).
 
 - **Identificadores.** Cada tabla usa un `id` técnico como clave primaria. El ID institucional, el código de asignatura, el código de período y el NRC son texto con `UNIQUE` y se normalizan (`trim` + mayúsculas) para que PostgreSQL y MySQL se comporten igual.
 - **NRC.** `UNIQUE(academic_period_id, nrc)`: es único dentro de un período y puede repetirse en otro.

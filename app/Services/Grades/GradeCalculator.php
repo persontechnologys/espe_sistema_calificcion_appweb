@@ -6,7 +6,7 @@ use App\Enums\GradeStatus;
 use InvalidArgumentException;
 
 /**
- * Único punto de cálculo académico (CLAUDE.md §4).
+ * Único punto de cálculo académico (especificación §4).
  *
  * - total = p1 + p2 + p3 (exacto, en centésimas enteras; sin float).
  * - promedio = total / 3, redondeado a 2 decimales solo para mostrar.

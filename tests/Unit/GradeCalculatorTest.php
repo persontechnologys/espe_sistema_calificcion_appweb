@@ -32,7 +32,7 @@ class GradeCalculatorTest extends TestCase
     #[Test]
     public function aprueba_aunque_un_parcial_sea_menor_a_14(): void
     {
-        // Ejemplo literal de CLAUDE.md §4.2.
+        // Ejemplo literal de especificación §4.2.
         $r = $this->calc->calculate(['10.00', '15.00', '17.00']);
 
         $this->assertSame('42,00', $r->totalFormatted());

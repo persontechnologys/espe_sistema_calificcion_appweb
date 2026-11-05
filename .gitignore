@@ -28,3 +28,10 @@ Thumbs.db
 
 # Logotipo oficial: no se versiona ni se despliega (decisión del responsable).
 /public/espe.jpeg
+
+# Presentación: las fotos, el logotipo y lo generado a partir de ellos no se versionan.
+/docs/fotos/
+/docs/presentacion/recursos/espe-logo.png
+/docs/presentacion/recursos/fondo-*.jpg
+/docs/presentacion/*.pptx
+/docs/presentacion/*.pdf

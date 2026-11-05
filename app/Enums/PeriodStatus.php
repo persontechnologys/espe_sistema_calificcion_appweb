@@ -3,7 +3,7 @@
 namespace App\Enums;
 
 /**
- * Estados del período académico (CLAUDE.md §7, decisión 18.12).
+ * Estados del período académico (especificación §7, decisión 18.12).
  * Transiciones solo hacia adelante: planned -> open -> closed. Sin reapertura.
  */
 enum PeriodStatus: string

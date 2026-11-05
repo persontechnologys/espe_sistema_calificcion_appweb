@@ -1,4 +1,4 @@
-{{-- Páginas de error propias: sin trazas ni detalles técnicos (CLAUDE.md §11, decisión 32). --}}
+{{-- Páginas de error propias: sin trazas ni detalles técnicos (especificación §11, decisión 32). --}}
 <!DOCTYPE html>
 <html lang="es">
 <head>

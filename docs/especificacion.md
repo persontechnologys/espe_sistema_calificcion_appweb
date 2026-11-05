@@ -1,6 +1,6 @@
-# CLAUDE.md
+# Especificación del proyecto
 
-## Proyecto: Sistema de Gestión Académica ESPE
+## Sistema de Gestión Académica ESPE
 
 > Documento rector para orientar el análisis, diseño, implementación,
 > pruebas y despliegue del sistema.
@@ -9,9 +9,6 @@
 > vacíos del análisis incorporados el 2026-11-04 (ver sección 18).\
 > **Evaluación:** entrevista técnica virtual el jueves 2026-11-05 a las
 > 08:10 (demostración de 10 minutos + 10 minutos de preguntas).\
-> **Regla de trabajo:** no implementar funcionalidades, generar código
-> ni modificar archivos hasta que el responsable lo solicite
-> expresamente.
 
 ------------------------------------------------------------------------
 
@@ -31,40 +28,32 @@ alcance es una aplicación pequeña, coherente, segura, mantenible y
 técnicamente defendible en una evaluación para el cargo de Profesor
 Ocasional 1.
 
-## 2. Instrucciones generales para Claude
+## 2. Principios de trabajo
 
-1.  Leer este archivo antes de proponer cambios o ejecutar tareas
-    relacionadas con el proyecto.
-2.  Respetar el alcance, las reglas académicas y las decisiones técnicas
+1.  Respetar el alcance, las reglas académicas y las decisiones técnicas
     aquí establecidas.
-3.  No inventar reglas institucionales que no hayan sido confirmadas.
-4.  No cambiar silenciosamente las reglas de calificación, los roles,
-    las relaciones ni la arquitectura.
-5.  Antes de implementar una tarea, explicar brevemente qué se hará y
-    qué archivos o componentes se verán afectados, salvo que el
-    responsable solicite ejecución directa.
-6.  No introducir dependencias, servicios externos o complejidad
+2.  No inventar reglas institucionales que no hayan sido confirmadas.
+3.  No cambiar sin registro las reglas de calificación, los roles, las
+    relaciones ni la arquitectura.
+4.  No introducir dependencias, servicios externos o complejidad
     arquitectónica sin justificar su necesidad.
-7.  Priorizar claridad, seguridad, integridad de datos, mantenibilidad y
+5.  Priorizar claridad, seguridad, integridad de datos, mantenibilidad y
     facilidad de explicación técnica.
-8.  Mantener las validaciones importantes tanto en la aplicación como en
+6.  Mantener las validaciones importantes tanto en la aplicación como en
     la base de datos cuando corresponda.
-9.  No confiar exclusivamente en controles de interfaz para proteger
+7.  No confiar exclusivamente en controles de interfaz para proteger
     operaciones o datos.
-10. No almacenar secretos, contraseñas, claves ni credenciales en el
+8.  No almacenar secretos, contraseñas, claves ni credenciales en el
     repositorio.
-11. No realizar despliegues, migraciones destructivas, borrados de datos
-    ni operaciones irreversibles sin autorización expresa.
-12. No afirmar que una prueba, compilación o despliegue fue exitoso si
-    no se ejecutó y verificó.
-13. Ante decisiones técnicas o de diseño, **tomar la mejor solución**
-    sin preguntar, justificarla brevemente y registrarla en la sección
-    18. Preguntar solo cuando la decisión cambie una regla académica
-    institucional (por ejemplo, la regla de aprobación) o cuando existan
-    dos opciones igual de válidas con consecuencias distintas para el
-    responsable. (Preferencia del responsable, 2026-11-04.)
-14. Mantener este documento actualizado cuando el responsable apruebe
-    cambios de alcance o decisiones importantes.
+9.  No realizar despliegues, migraciones destructivas, borrados de datos
+    ni operaciones irreversibles sin respaldo y autorización.
+10. No dar por exitosa una prueba, compilación o despliegue que no se
+    haya ejecutado y verificado.
+11. Ante decisiones técnicas, elegir la mejor solución, justificarla
+    brevemente y registrarla en la sección 18. Las decisiones que
+    cambien una regla académica institucional las toma el responsable.
+12. Mantener este documento actualizado cuando se aprueben cambios de
+    alcance o decisiones importantes.
 
 ## 3. Alcance funcional
 
@@ -1032,7 +1021,7 @@ aprobarse y reflejarse aquí y en la sección afectada.
 
 ### 18.1 Decisiones técnicas de implementación
 
-Tomadas durante la implementación según la regla 2.13 (mejor solución
+Tomadas durante la implementación según el principio 2.11 (mejor solución
 técnica, justificada y registrada). No cambian reglas académicas.
 
   \#   Tema                         Decisión y justificación

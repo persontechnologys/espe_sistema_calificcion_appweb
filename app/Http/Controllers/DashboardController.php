@@ -48,7 +48,7 @@ class DashboardController extends Controller
             'subjects' => Subject::where('is_active', true)->count(),
             'openOfferings' => CourseOffering::whereIn('academic_period_id', (clone $openPeriods)->select('id'))->count(),
             'enrollments' => Enrollment::count(),
-            // Incompleto: matrícula sin registro de notas o con algún parcial NULL (CLAUDE.md §4.3.2).
+            // Incompleto: matrícula sin registro de notas o con algún parcial NULL (especificación §4.3.2).
             'incomplete' => Enrollment::query()
                 ->where(fn (Builder $q) => $q->doesntHave('grade')->orWhereHas('grade', fn (Builder $g) => $g
                     ->whereNull('partial_1')->orWhereNull('partial_2')->orWhereNull('partial_3')))

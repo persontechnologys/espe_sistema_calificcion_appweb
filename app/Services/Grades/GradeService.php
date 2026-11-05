@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 
 /**
- * Único punto de escritura de calificaciones (CLAUDE.md §6.1, §7, §12).
+ * Único punto de escritura de calificaciones (especificación §6.1, §7, §12).
  *
  * En una sola transacción:
  *  1. Bloqueo compartido de la oferta y del período: nadie puede reasignar la oferta ni

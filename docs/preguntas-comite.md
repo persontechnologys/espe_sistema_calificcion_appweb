@@ -1,4 +1,4 @@
-# Repaso para las preguntas del comité (CLAUDE.md §17)
+# Repaso para las preguntas del comité (especificación §17)
 
 Respuestas breves, con ventaja, límite y alternativa, y con referencias al código para mostrarlo en pantalla.
 

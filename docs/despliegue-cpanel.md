@@ -1,6 +1,6 @@
 # Despliegue en cPanel (PHP 8.4 + MySQL 8)
 
-Guía para el hosting objetivo (CLAUDE.md §15). Antes de desplegar, la suite debe estar en
+Guía para el hosting objetivo (especificación §15). Antes de desplegar, la suite debe estar en
 verde en **MySQL 8** en GitHub Actions.
 
 Los comandos usan `~/espe-academico` como carpeta del proyecto y `demo.midominio.com` como

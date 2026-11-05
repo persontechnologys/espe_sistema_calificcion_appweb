@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * Búsqueda de texto sin distinguir mayúsculas e igual en ambos motores:
  * LIKE distingue mayúsculas en PostgreSQL y no en MySQL, por eso se compara
- * LOWER(columna) con el término en minúsculas (CLAUDE.md §10.1.1).
+ * LOWER(columna) con el término en minúsculas (especificación §10.1.1).
  */
 trait SearchesText
 {
