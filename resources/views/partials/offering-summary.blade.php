@@ -1,8 +1,7 @@
-<dl class="row mb-0 small">
-    <dt class="col-sm-3 col-lg-2">Período</dt><dd class="col-sm-9 col-lg-4">{{ $offering->academicPeriod->label }}
-        <span class="badge {{ $offering->academicPeriod->status->badgeClass() }}">{{ $offering->academicPeriod->status->label() }}</span></dd>
-    <dt class="col-sm-3 col-lg-2">Asignatura</dt><dd class="col-sm-9 col-lg-4">{{ $offering->subject->code }} · {{ $offering->subject->name }}</dd>
-    <dt class="col-sm-3 col-lg-2">NRC</dt><dd class="col-sm-9 col-lg-4">{{ $offering->nrc }}</dd>
-    <dt class="col-sm-3 col-lg-2">Docente</dt><dd class="col-sm-9 col-lg-4">{{ $offering->teacher->name }} ({{ $offering->teacher->institutional_id }})</dd>
-    <dt class="col-sm-3 col-lg-2">Aula / Campus</dt><dd class="col-sm-9 col-lg-4">{{ $offering->classroom ?? '—' }} / {{ $offering->campus ?? '—' }}</dd>
+<dl class="row summary-dl mb-0">
+    <div class="col-sm-6 col-lg-4"><dt>Período</dt><dd>{{ $offering->academicPeriod->label }} <x-ui.status-badge :status="$offering->academicPeriod->status" /></dd></div>
+    <div class="col-sm-6 col-lg-4"><dt>Asignatura</dt><dd>{{ $offering->subject->code }} · {{ $offering->subject->name }}</dd></div>
+    <div class="col-sm-6 col-lg-4"><dt>NRC</dt><dd class="tabular">{{ $offering->nrc }}</dd></div>
+    <div class="col-sm-6 col-lg-4"><dt>Docente</dt><dd>{{ $offering->teacher->name }} ({{ $offering->teacher->institutional_id }})</dd></div>
+    <div class="col-sm-6 col-lg-4"><dt>Aula / Campus</dt><dd>{{ $offering->classroom ?? '—' }} / {{ $offering->campus ?? '—' }}</dd></div>
 </dl>

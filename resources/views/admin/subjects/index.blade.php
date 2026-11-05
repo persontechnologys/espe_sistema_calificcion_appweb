@@ -1,28 +1,44 @@
 @extends('layouts.app')
 @section('title', 'Asignaturas')
 @section('content')
-@include('partials.page-header', ['title' => 'Asignaturas', 'createRoute' => route('admin.subjects.create'), 'createLabel' => 'Nueva asignatura'])
-@include('partials.search', ['placeholder' => 'Código o nombre'])
-<div class="card shadow-sm"><div class="table-responsive">
-<table class="table table-hover align-middle mb-0">
-    <thead class="table-light"><tr><th>Código</th><th>Nombre</th><th class="text-end">Ofertas</th><th>Estado</th><th></th></tr></thead>
-    <tbody>
-    @forelse ($subjects as $subject)
-        <tr>
-            <td><strong>{{ $subject->code }}</strong></td>
-            <td>{{ $subject->name }}</td>
-            <td class="text-end">{{ $subject->course_offerings_count }}</td>
-            <td>@include('partials.active-badge', ['active' => $subject->is_active])</td>
-            <td class="text-end text-nowrap">
-                <a class="btn btn-sm btn-outline-primary" href="{{ route('admin.subjects.edit', $subject) }}">Editar</a>
-                @include('partials.delete-button', ['action' => route('admin.subjects.destroy', $subject)])
-            </td>
-        </tr>
-    @empty
-        <tr><td colspan="5" class="text-center text-muted py-4">Sin asignaturas.</td></tr>
-    @endforelse
-    </tbody>
-</table>
-</div></div>
-<div class="mt-3">{{ $subjects->links() }}</div>
+<x-ui.page-header title="Asignaturas">
+    <x-slot:actions>
+        <a href="{{ route('admin.subjects.create') }}" class="btn btn-primary"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Nueva asignatura</a>
+    </x-slot:actions>
+</x-ui.page-header>
+
+<div class="card">
+    <x-ui.filter-bar placeholder="Código o nombre" search-label="Buscar asignatura" />
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead><tr>
+                <th>Código</th><th>Nombre</th><th class="num d-none d-sm-table-cell">Ofertas</th><th>Estado</th>
+                <th class="text-end"><span class="visually-hidden">Acciones</span></th>
+            </tr></thead>
+            <tbody>
+            @forelse ($subjects as $subject)
+                <tr>
+                    <td class="cell-strong text-nowrap">{{ $subject->code }}</td>
+                    <td>{{ $subject->name }}</td>
+                    <td class="num d-none d-sm-table-cell">{{ $subject->course_offerings_count }}</td>
+                    <td><x-ui.status-badge :active="$subject->is_active" /></td>
+                    <td class="text-end">
+                        <div class="table-actions">
+                            <x-ui.icon-link :href="route('admin.subjects.edit', $subject)" icon="bi-pencil" :label="'Editar asignatura '.$subject->code" />
+                            <x-ui.delete-button :action="route('admin.subjects.destroy', $subject)" :item="$subject->code.' · '.$subject->name" />
+                        </div>
+                    </td>
+                </tr>
+            @empty
+                <x-ui.empty-row colspan="5" icon="bi-journal-bookmark" title="Sin asignaturas" message="{{ request()->query() ? 'Ninguna asignatura coincide con la búsqueda.' : 'Registre la primera asignatura.' }}">
+                    @unless (request()->query())
+                        <a href="{{ route('admin.subjects.create') }}" class="btn btn-sm btn-primary">Nueva asignatura</a>
+                    @endunless
+                </x-ui.empty-row>
+            @endforelse
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer-pagination">{{ $subjects->links() }}</div>
+</div>
 @endsection

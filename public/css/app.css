@@ -376,3 +376,4 @@ body { -webkit-font-smoothing: antialiased; }
     .report table.grades thead th { background: #e9ecef !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
     .report tr { page-break-inside: avoid; }
 }
+.card-toolbar [data-width="sm"] { width: 9rem; }
