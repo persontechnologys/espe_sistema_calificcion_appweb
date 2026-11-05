@@ -559,7 +559,13 @@ usar datos de estudiantes o docentes reales.
 
 No copiar logotipos oficiales ni afirmar que el reporte es un documento
 oficial emitido por ESPE sin autorización. Presentarlo como reporte
-generado por el sistema de demostración.
+generado por el Sistema de Gestión Académica.
+
+Identidad propia, sin logo oficial: la interfaz usa la marca "Sistema de
+Gestión Académica" con un monograma propio y la atribución "Desarrollado
+por Person Technologies". El nombre de la universidad aparece solo como
+dato del contexto académico en el encabezado del reporte, en texto.
+(Decisión del responsable, 2026-11-04; ver decisión 35.)
 
 ## 10. Arquitectura y tecnologías
 
@@ -1091,6 +1097,54 @@ técnica, justificada y registrada). No cambian reglas académicas.
                                     destructivos, límite 5/min. No cachea la
                                     configuración: vaciar el token la
                                     desactiva de inmediato.
+  35   Identidad visual             Marca propia "Sistema de Gestión
+                                    Académica" con monograma SVG propio; sin
+                                    logo de ESPE (`public/espe.jpeg` en
+                                    `.gitignore`). Atribución a Person
+                                    Technologies. El título de la pestaña es
+                                    fijo y no depende de `APP_NAME`.
+  36   Iconos                       Bootstrap Icons 1.13.2 local en
+                                    `public/vendor/bootstrap-icons`: única
+                                    dependencia nueva. Sin jQuery, librerías
+                                    de diálogos/notificaciones ni CDN.
+  37   CSS y JavaScript             Un solo `public/css/app.css` (variables
+                                    que sobrescriben las de Bootstrap) y un
+                                    solo `public/js/app.js` con `defer`; sin
+                                    scripts ni `onclick` inline (prepara una
+                                    CSP). Versión de caché por `filemtime`.
+  38   Confirmar y notificar        Un modal Bootstrap único activado con
+                                    `data-confirm-*` y toasts alimentados por
+                                    los mensajes flash; sin `confirm()` ni
+                                    `alert()` nativos.
+  39   Layout                       Sidebar `offcanvas-lg` (un solo marcado:
+                                    fijo en escritorio, Offcanvas en móvil),
+                                    contraíble con estado en `localStorage`.
+                                    Las migas se derivan del nombre de ruta;
+                                    su último elemento es el título. El menú
+                                    se oculta por rol, pero la autorización
+                                    sigue en middleware y Policies.
+  40   Componentes                  Componentes Blade anónimos
+                                    (`x-layout.*`, `x-ui.*`, `x-form.*`), sin
+                                    clases PHP; sustituyen los parciales
+                                    genéricos.
+  41   Dashboard                    `DashboardController` solo de lectura con
+                                    consultas agregadas (`count`,
+                                    `withCount`, `doesntHave`). Registros
+                                    incompletos = matrículas sin notas o con
+                                    algún parcial `NULL`, en todos los
+                                    períodos.
+  42   Validación en el cliente     Complementaria (`data-validate`, HTML5):
+                                    nunca sustituye ni relaja los Form
+                                    Requests.
+  43   Planilla                     Sin cálculo de notas en JavaScript: total,
+                                    promedio y estado vienen solo de
+                                    `GradeCalculator`. Filas con cambios
+                                    marcadas, aviso `beforeunload`, Enter
+                                    guarda la fila, solo lectura fuera de
+                                    `open`.
+  44   Corrección del admin         Modal de vista previa con valores
+                                    anteriores, nuevos y motivo antes de
+                                    enviar; el servidor vuelve a validar.
 
 ## 19. Criterios de aceptación global
 

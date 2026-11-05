@@ -193,7 +193,7 @@
         if (!confirmEl || !bs) { return false; }
         const danger = form.dataset.confirmVariant === 'danger';
         confirmEl.querySelector('[data-confirm-slot="title"]').textContent = form.dataset.confirmTitle || '¿Confirmar la acción?';
-        confirmEl.querySelector('[data-confirm-slot="message"]').textContent = form.dataset.confirmMessage || form.dataset.confirm || '';
+        confirmEl.querySelector('[data-confirm-slot="message"]').textContent = form.dataset.confirmMessage || '';
         confirmEl.querySelector('[data-confirm-slot="item"]').textContent = form.dataset.confirmItem || '';
         const icon = confirmEl.querySelector('[data-confirm-slot="icon"]');
         icon.className = 'bi ' + (danger ? 'bi-exclamation-triangle-fill text-danger' : 'bi-question-circle-fill text-primary');
@@ -338,7 +338,7 @@
 
         if (form.dataset.confirmed !== '1') {
             if (form.matches('[data-correction-form]') && askCorrection(form)) { e.preventDefault(); return; }
-            if ((form.dataset.confirmTitle || form.dataset.confirmMessage || form.dataset.confirm) && askConfirm(form, submitter)) { e.preventDefault(); return; }
+            if ((form.dataset.confirmTitle || form.dataset.confirmMessage) && askConfirm(form, submitter)) { e.preventDefault(); return; }
         }
 
         if (form.method.toLowerCase() === 'post') { setLoading(form, submitter); }
