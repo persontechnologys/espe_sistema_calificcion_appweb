@@ -1,555 +1,217 @@
-# PROMPT PARA CLAUDE CODE: REDISEÑO PROFESIONAL UI/UX — SISTEMA DE GESTIÓN ACADÉMICA ESPE
-
-Actúa como un **Senior UI/UX Designer, Senior Frontend Engineer y especialista en Laravel Blade, Bootstrap 5 y diseño de sistemas administrativos profesionales**.
-
-Quiero que realices un rediseño integral de la interfaz de usuario y experiencia de usuario (UI/UX) de este proyecto.
-
-No quiero simplemente cambiar colores, agregar sombras o modificar algunos botones. Quiero que transformes la aplicación en un sistema académico moderno, elegante, intuitivo, consistente y visualmente profesional, con una experiencia similar a la de un software administrativo comercial de alta calidad.
-
-El resultado debe transmitir confianza, calidad de desarrollo y profesionalismo.
-
-## 1. ANTES DE IMPLEMENTAR: AUDITORÍA DEL PROYECTO
-
-Primero inspecciona el proyecto existente:
-
-- Revisa `CLAUDE.md`.
-- Identifica la versión actual de Laravel y PHP.
-- Inspecciona las vistas Blade.
-- Revisa las hojas de estilos y archivos JavaScript.
-- Identifica si ya se utiliza Bootstrap, jQuery u otras bibliotecas.
-- Analiza el layout principal, menú, formularios, tablas, modales y componentes existentes.
-- Identifica inconsistencias visuales, problemas de usabilidad y componentes duplicados.
-
-No modifiques la lógica de negocio ni las reglas académicas durante el rediseño.
-
-Conserva las rutas, controladores, modelos, relaciones, validaciones del servidor, Policies y funcionalidades existentes.
-
-Después de la auditoría, realiza el rediseño de manera ordenada, sin detenerte en una propuesta teórica si ya tienes autorización para trabajar sobre el proyecto.
-
-## 2. STACK FRONTEND Y BIBLIOTECAS
-
-Utiliza las versiones estables más recientes y compatibles con el proyecto.
-
-### Framework CSS
-
-- Bootstrap 5, preferentemente la última versión estable de la rama 5.x.
-- Bootstrap Icons para iconografía.
-- CSS personalizado organizado mediante variables CSS.
-- JavaScript moderno.
-- jQuery únicamente cuando una biblioteca o funcionalidad lo justifique.
-
-Comprueba la compatibilidad de las versiones antes de instalar o actualizar dependencias.
-
-No mezcles diferentes versiones de Bootstrap ni cargues dos veces sus archivos JavaScript.
-
-### Bibliotecas de interacción
-
-Evalúa e incorpora las siguientes soluciones cuando aporten valor:
-
-**Validación frontend**
-- jQuery Validation (`jquery-validation`), si la arquitectura actual justifica el uso de jQuery.
-- Adaptación visual de los mensajes de validación a Bootstrap 5.
-- Validación en tiempo real cuando sea apropiado.
-- Mensajes en español.
-- Indicadores visuales de campos válidos e inválidos.
-
-**Confirmaciones y diálogos**
-- jQuery Confirm: https://craftpip.github.io/jquery-confirm/
-- Evalúa también alternativas modernas y mantenidas, como SweetAlert2.
-- Selecciona una solución principal, evitando duplicar bibliotecas para hacer lo mismo.
-
-**Notificaciones**
-- Notyf, Noty o Toastr, evaluando mantenimiento y compatibilidad.
-- También puedes utilizar Bootstrap Toast para notificaciones sencillas.
-
-Implementa notificaciones consistentes para:
-- Operación realizada correctamente.
-- Registro creado.
-- Registro actualizado.
-- Registro eliminado.
-- Error de validación.
-- Error inesperado.
-- Operación no autorizada.
-- Advertencias.
-
-Las notificaciones deben integrarse con los mensajes flash de Laravel.
-
-**Otros componentes**
-- Bootstrap Modal.
-- Bootstrap Tooltip.
-- Bootstrap Popover.
-- Dropdowns.
-- Offcanvas para navegación móvil.
-- Spinners y estados de carga.
-- Componentes de paginación.
-- Estados vacíos para tablas sin información.
-
-No agregues bibliotecas por moda. Prioriza compatibilidad, mantenimiento, rendimiento y una experiencia consistente.
-
-## 3. SISTEMA VISUAL (DESIGN SYSTEM)
-
-Crea un sistema de diseño coherente para toda la aplicación.
-
-Define:
-
-- Paleta de colores.
-- Tipografía.
-- Jerarquía visual.
-- Tamaños de títulos.
-- Espaciados.
-- Bordes y radios.
-- Sombras.
-- Estados de botones.
-- Estados de formularios.
-- Colores semánticos.
-- Estilo de tablas.
-- Estilo de tarjetas.
-- Estilo de modales.
-- Estilo de notificaciones.
-
-### Dirección visual
-
-Quiero una interfaz:
-
-- Moderna.
-- Profesional.
-- Limpia.
-- Elegante.
-- Minimalista, pero no vacía.
-- Con buena jerarquía visual.
-- Con espacios bien distribuidos.
-- Sin saturación de colores.
-- Sin exceso de sombras.
-- Sin elementos decorativos innecesarios.
-
-Utiliza una combinación visual institucional, con azul oscuro, azul institucional, blanco y grises neutros. Los colores de éxito, advertencia y error deben ser semánticos y consistentes.
-
-Evita interfaces que parezcan plantillas administrativas genéricas sin personalidad.
-
-## 4. LOGIN: SPLIT SCREEN LOGIN
-
-Rediseña completamente la pantalla de inicio de sesión.
-
-Quiero utilizar el patrón:
-
-**Split Screen Login / Two-Column Login Layout.**
-
-La pantalla debe dividirse en dos columnas.
-
-### Columna izquierda: identidad visual
-
-Debe incluir:
-
-- Logo ESPE ubicado en `public/espe.jpeg`.
-- Nombre del sistema: Sistema de Gestión Académica.
-- Mensaje institucional breve.
-- Una composición visual moderna y profesional.
-- Fondo con degradado o una combinación elegante de colores institucionales.
-- Elementos gráficos sutiles relacionados con educación, tecnología y gestión académica.
-
-### Columna derecha: formulario
-
-Debe incluir:
-
-- Título: Bienvenido.
-- Subtítulo: Ingresa tus credenciales para continuar.
-- Campo de correo electrónico o usuario, según el mecanismo de autenticación existente.
-- Campo de contraseña.
-- Botón para mostrar u ocultar contraseña.
-- Opción para recordar sesión, si está implementada.
-- Botón principal de inicio de sesión.
-- Indicador de procesamiento.
-- Mensajes de error claros y elegantes.
-- Estados de foco y validación.
-
-### Diseño responsive
-
-En escritorio:
-- Dos columnas equilibradas.
-- Composición visual amplia.
-- Formulario centrado verticalmente.
-
-En tablets:
-- Ajustar proporciones y espacios.
-
-En móviles:
-- Diseño de una sola columna.
-- Formulario cómodo de utilizar.
-- Logo visible.
-- Sin desplazamientos horizontales.
-
-No alteres el mecanismo de autenticación de Laravel.
-
-## 5. DASHBOARD: SIDEBAR IZQUIERDO
-
-Implementa un diseño administrativo profesional con:
-
-**Dashboard con Sidebar Izquierdo (Left Sidebar Navigation).**
-
-### Sidebar
-
-Debe contener:
-
-- Logo ESPE.
-- Nombre del sistema.
-- Navegación organizada por secciones.
-- Iconos Bootstrap Icons.
-- Indicador visual del menú activo.
-- Submenús desplegables cuando corresponda.
-- Perfil o identidad del usuario.
-- Opción de cerrar sesión.
-
-La navegación debe adaptarse a los permisos del usuario.
-
-Administrador y docente deben visualizar únicamente las opciones correspondientes a sus permisos.
-
-### Comportamiento
-
-En escritorio:
-- Sidebar fijo o persistente.
-- Posibilidad de contraerlo.
-- Contenido principal con espacio adecuado.
-
-En móviles:
-- Sidebar mediante Offcanvas.
-- Botón hamburguesa.
-- Cierre al seleccionar una opción.
-
-### Barra superior (Topbar)
-
-Debe contener:
-
-- Título de la sección actual.
-- Breadcrumbs.
-- Nombre del usuario autenticado.
-- Rol del usuario.
-- Menú de perfil.
-- Cierre de sesión.
-
-No sobrecargues la barra superior.
-
-## 6. DASHBOARD PRINCIPAL
-
-Diseña un dashboard útil, no simplemente decorativo.
-
-Incluye tarjetas de indicadores cuando los datos estén disponibles:
-
-- Total de estudiantes.
-- Total de docentes.
-- Total de asignaturas.
-- Ofertas académicas activas.
-- Matrículas registradas.
-- Calificaciones pendientes o incompletas.
-
-Incluye secciones como:
-
-- Resumen académico.
-- Período académico actual.
-- Ofertas académicas recientes.
-- Actividad reciente, si existe información real.
-- Accesos rápidos según los permisos.
-
-No inventes estadísticas ni datos. Utiliza información real obtenida desde Laravel.
-
-Si no hay datos, muestra estados vacíos bien diseñados.
-
-## 7. FORMULARIOS PROFESIONALES
-
-Rediseña todos los formularios del sistema.
-
-Incluye:
-
-- Labels claros.
-- Placeholders útiles.
-- Indicadores de campos obligatorios.
-- Ayudas contextuales.
-- Validaciones visuales.
-- Mensajes debajo de los campos.
-- Estados de carga.
-- Botones con jerarquía visual clara.
-- Distribución lógica de campos.
-- Espaciado consistente.
-
-Para campos relacionados, utiliza agrupaciones visuales.
-
-Ejemplos:
-
-- Datos personales del estudiante.
-- Identificación institucional.
-- Información de asignaturas.
-- Datos de ofertas académicas.
-- Información de matrículas.
-- Registro de calificaciones.
-
-### Validación
-
-La validación frontend es complementaria, nunca reemplaza la validación de Laravel.
-
-Los formularios deben mostrar los errores enviados por el servidor mediante `@error`, `old()` y los mecanismos apropiados de Laravel.
-
-No elimines ni debilites las reglas de validación existentes.
-
-## 8. TABLAS Y LISTADOS
-
-Las tablas deben tener apariencia profesional.
-
-Implementa:
-
-- Encabezados diferenciados.
-- Filas con espaciado adecuado.
-- Hover sutil.
-- Columnas correctamente alineadas.
-- Badges para estados.
-- Acciones con iconos y tooltips.
-- Paginación visualmente consistente.
-- Buscador.
-- Filtros cuando sean útiles.
-- Estados vacíos.
-- Indicadores de carga.
-
-En dispositivos pequeños, utiliza tablas responsive o una presentación alternativa cuando sea necesario.
-
-No reduzcas excesivamente el tamaño de las fuentes para intentar hacer caber todas las columnas.
-
-## 9. MÓDULO DE CALIFICACIONES: ATENCIÓN ESPECIAL
-
-Este módulo es fundamental.
-
-Su interfaz debe ser especialmente clara, porque representa las reglas académicas definidas para el proyecto.
-
-Cada estudiante debe mostrar:
-
-- ID institucional.
-- Apellidos y nombres.
-- Primer parcial (1P).
-- Segundo parcial (2P).
-- Tercer parcial (3P).
-- Promedio sobre 20.
-- Total acumulado sobre 60.
-- Estado académico.
-
-Las calificaciones deben mostrarse con dos decimales.
-
-El estado debe distinguirse mediante badges:
-
-- Aprobado.
-- Reprobado.
-- Incompleto.
-
-Utiliza una presentación visual que facilite la introducción de las tres notas.
-
-Considera:
-- Entrada numérica clara.
-- Límites visibles de 0 a 20.
-- Validación inmediata.
-- Navegación sencilla entre campos.
-- Guardado claro.
-- Indicador de cambios pendientes.
-- Confirmación antes de abandonar cambios sin guardar, cuando corresponda.
-
-El cálculo debe respetar estrictamente las reglas del proyecto:
-
-- Tres parciales.
-- Cada parcial de 0 a 20.
-- Total acumulado sobre 60.
-- Promedio sobre 20.
-- Aprobación desde 42/60.
-
-No cambies estas reglas ni las implementes únicamente en JavaScript.
-
-## 10. MODALES, CONFIRMACIONES Y TOOLTIPS
-
-Utiliza modales para operaciones que se beneficien de una interacción contextual, por ejemplo:
-
-- Crear o editar registros sencillos.
-- Consultar detalles.
-- Confirmar operaciones.
-- Mostrar información complementaria.
-
-No conviertas todos los formularios en modales. Para formularios extensos, conserva páginas independientes.
-
-Utiliza tooltips para explicar iconos o acciones poco evidentes.
-
-Las confirmaciones de eliminación deben:
-
-- Explicar claramente qué registro se eliminará.
-- Identificar el elemento afectado.
-- Permitir cancelar.
-- Evitar eliminaciones accidentales.
-
-No utilices `alert()` ni `confirm()` nativos del navegador en la experiencia normal de la aplicación.
-
-## 11. IDENTIDAD VISUAL Y MARCA
-
-Utiliza el logo institucional disponible en:
-
-`public/espe.jpeg`
-
-Requisitos:
-
-- Mantener su proporción.
-- No deformarlo.
-- No cambiar sus colores.
-- Utilizar un tamaño adecuado.
-- Evitar que pierda legibilidad.
-- Optimizar su presentación en login y sidebar.
-
-La identidad del desarrollador debe estar presente de forma elegante.
-
-Desarrollado por:
-
-**Person Technologies**
-
-Sitio web:
-
-https://dc.persontechnologys.com/
-
-Puedes incluir esta atribución discretamente en el footer del sistema y en la pantalla de inicio de sesión.
-
-El sistema debe presentarse con el nombre:
-
-**Sistema de Gestión Académica**
-
-Elimina de la interfaz todos los textos innecesarios que lo presenten como una demostración, prototipo o ejercicio académico, incluyendo expresiones como:
-
-- "Demostración técnica".
-- "Sistema de demostración".
-- "Demo".
-- "No es un documento oficial".
-- "No es un sistema oficial".
-- Mensajes similares que resten profesionalismo a la interfaz.
-
-No sustituyas esos textos por afirmaciones de aprobación, certificación, propiedad institucional o carácter oficial que no hayan sido autorizadas. La presentación debe ser profesional y sobria, sin declaraciones institucionales engañosas.
-
-## 12. EXPERIENCIA DE USUARIO
-
-Aplica buenas prácticas de UX:
-
-- Navegación intuitiva.
-- Acciones principales fácilmente identificables.
-- Jerarquía visual.
-- Feedback inmediato.
-- Prevención de errores.
-- Mensajes comprensibles.
-- Estados de carga.
-- Estados vacíos.
-- Confirmación de operaciones sensibles.
-- Consistencia entre módulos.
-
-Evita:
-- Botones sin función.
-- Enlaces vacíos.
-- Iconos ambiguos.
-- Formularios excesivamente largos sin agrupación.
-- Mensajes técnicos dirigidos al usuario final.
-- Popups innecesarios.
-- Animaciones excesivas.
-- Elementos que se mueven sin aportar valor.
-
-Toda interacción debe tener una respuesta visual clara.
-
-## 13. ACCESIBILIDAD Y RESPONSIVE DESIGN
-
-Cumple buenas prácticas de accesibilidad:
-
-- Contraste suficiente.
-- Labels asociados a campos.
-- Navegación por teclado.
-- Estados de foco visibles.
-- Mensajes de error comprensibles.
-- Iconos acompañados de texto o etiquetas accesibles cuando corresponda.
-- No depender únicamente del color para comunicar estados.
-
-Comprueba los siguientes tamaños:
-
-- Escritorio grande.
-- Laptop.
-- Tablet.
-- Móvil.
-
-No debe existir scroll horizontal accidental.
-
-## 14. ORGANIZACIÓN DEL CÓDIGO
-
-Mantén el código limpio y reutilizable.
-
-Centraliza los componentes visuales compartidos:
-
-- Layout principal.
-- Sidebar.
-- Topbar.
-- Breadcrumbs.
-- Alertas.
-- Toasts.
-- Modales.
-- Botones.
-- Formularios.
-- Tablas.
-- Badges.
-- Estados vacíos.
-
-Evita duplicar HTML, CSS y JavaScript en todas las vistas.
-
-Organiza correctamente los assets y respeta la estructura existente de Laravel.
-
-No introduzcas un framework frontend adicional como React o Vue. La interfaz debe continuar utilizando Blade y Bootstrap 5.
-
-## 15. RENDIMIENTO
-
-- Evita cargar bibliotecas duplicadas.
-- Utiliza assets locales o un sistema de compilación consistente.
-- No cargues scripts innecesarios en todas las páginas.
-- Optimiza CSS y JavaScript.
-- Evita consultas adicionales desde las vistas.
-- No generes problemas N+1 al mostrar información académica.
-- Mantén una experiencia fluida en hosting compartido cPanel.
-
-## 16. CRITERIOS DE ACEPTACIÓN
-
-El rediseño estará completo cuando:
-
-1. El login tenga diseño Split Screen profesional.
-2. El dashboard tenga sidebar izquierdo moderno y responsive.
-3. El menú respete los roles y permisos.
-4. Todos los módulos compartan el mismo sistema visual.
-5. Los formularios tengan validaciones visuales y mensajes claros.
-6. Las tablas sean modernas, legibles y responsive.
-7. Las confirmaciones y notificaciones tengan un diseño consistente.
-8. Los modales y tooltips funcionen correctamente.
-9. El módulo de calificaciones sea intuitivo y respete las reglas académicas.
-10. El logo ESPE se utilice correctamente desde `public/espe.jpeg`.
-11. La atribución a Person Technologies sea discreta y profesional.
-12. No queden textos de demostración ni mensajes que resten profesionalismo.
-13. No se rompa ninguna funcionalidad existente.
-14. La aplicación funcione correctamente en escritorio y móvil.
-15. No existan errores de consola ni dependencias incompatibles.
-16. Las pruebas existentes continúen pasando.
-
-## 17. FORMA DE TRABAJO
-
-Trabaja con criterio profesional.
-
-Primero inspecciona el proyecto y detecta los componentes que deben rediseñarse.
-
-Después implementa el sistema visual compartido y aplícalo progresivamente a los módulos.
-
-No hagas cambios superficiales aislados: mantén una identidad visual uniforme en toda la aplicación.
-
-No elimines funcionalidades para simplificar el rediseño.
-
-No modifiques reglas académicas ni controles de autorización.
-
-Al finalizar:
-
-- Resume los cambios realizados.
-- Enumera los archivos principales modificados.
-- Indica las bibliotecas añadidas y sus versiones.
-- Explica las decisiones de diseño relevantes.
-- Informa las pruebas ejecutadas y sus resultados.
-- Identifica cualquier funcionalidad que no haya podido verificarse.
-
-**OBJETIVO FINAL:**
-
-Quiero que el sistema tenga la apariencia, consistencia y experiencia de usuario de un producto de software profesional, desarrollado cuidadosamente por Person Technologies, con una identidad académica clara y una interfaz moderna de alta calidad.
-
-No quiero una plantilla administrativa genérica. Quiero una aplicación con personalidad visual, excelente usabilidad y calidad de producto.
+# Rediseño UI/UX — Sistema de Gestión Académica
+
+> Versión revisada del prompt original (ver historial de Git). Cambios principales:
+> sin logo oficial de la ESPE (decisión del responsable), sin jQuery ni bibliotecas
+> de diálogos o notificaciones (Bootstrap 5 ya lo cubre), sin cálculo de notas en JavaScript,
+> trabajo en una rama propia y verificación explícita de pruebas y del despliegue.
+
+## 0. Contexto y límites (leer primero)
+
+- El documento rector es `CLAUDE.md`. Léelo completo antes de empezar; prevalece sobre este archivo.
+- Stack actual: Laravel 13, PHP ^8.4, Blade, Bootstrap **5.3.8** local en `public/vendor/bootstrap`
+  (sin Vite, Node ni CDN; decisión 23). Producción: cPanel con la rama `deploy`.
+- **Solo cambia la presentación.** No modifiques rutas, controladores, modelos, Form Requests,
+  Policies, servicios, migraciones ni reglas académicas. Si algo visual exige tocar un
+  controlador (por ejemplo, un dato para el dashboard), debe ser solo lectura, con `with()` o
+  `withCount()`, sin N+1 y con prueba.
+- Trabaja en la rama **`ui-redesign`**, creada desde `main`, con commits pequeños por módulo.
+  No se fusiona a `main` ni a `deploy` hasta que las pruebas pasen y el responsable lo apruebe.
+  La versión desplegada actual es la de respaldo para la entrevista.
+- Registra cada decisión de diseño relevante en `CLAUDE.md` §18.1 (a partir del número 35).
+
+## 1. Auditoría breve (máx. 10 líneas en tu primera respuesta)
+
+Revisa `resources/views/**`, el layout `layouts/app.blade.php`, los parciales en `partials/`
+y el JavaScript inline del layout. Enumera los problemas visuales y de usabilidad que
+corregirás, y empieza a implementar sin esperar aprobación.
+
+## 2. Dependencias: mínimas y locales
+
+| Necesidad | Solución | Por qué |
+|---|---|---|
+| Estilos y componentes | Bootstrap 5.3.8 (ya instalado) | No duplicar ni actualizar |
+| Iconos | **Bootstrap Icons 1.13.x**, copiado a `public/vendor/bootstrap-icons` (CSS + fuentes woff/woff2 + LICENSE) | Única dependencia nueva |
+| Confirmaciones | **Un modal Bootstrap reutilizable** que sustituye `data-confirm` | jQuery Confirm no se mantiene desde 2019 |
+| Notificaciones | **Bootstrap Toast** alimentado por los mensajes flash de Laravel | Toastr y Noty están abandonados; Notyf sobra |
+| Validación en el cliente | Validación nativa de HTML5 (`required`, `maxlength`, `type`, `pattern`) + estilos de Bootstrap (`.is-invalid`, `.was-validated`) + JS propio y pequeño | Sin jQuery ni jquery-validation |
+| Tipografía | Pila de fuentes del sistema (`system-ui, "Segoe UI", Roboto, …`) | Sin Google Fonts: la demo no depende de internet |
+
+**No** añadas jQuery, SweetAlert2, Toastr, Noty, jquery-validation, React, Vue ni Tailwind.
+Copia los archivos de Bootstrap Icons con `npm pack bootstrap-icons@1.13` en una carpeta
+temporal fuera del proyecto, igual que se hizo con Bootstrap. No añadas `package.json`.
+
+Todo el JavaScript va en **un archivo propio**, `public/js/app.js`, cargado con `defer`. Sin
+scripts inline (deja preparado el terreno para una CSP). Todo el CSS va en `public/css/app.css`,
+organizado con variables CSS. Cárgalos con `asset()` y un parámetro de versión para invalidar la caché.
+
+## 3. Sistema de diseño
+
+Define en `public/css/app.css` las variables y sobrescribe las de Bootstrap (`--bs-primary`, etc.):
+
+- **Paleta institucional neutra** (no la del logo de ESPE):
+  - Azul marino `#0B2545` (sidebar), azul `#13315C` / `#1D4E89` (primario), acento `#2A7DE1` (foco, enlaces).
+  - Grises neutros `#F4F6FA` (fondo), `#E3E8EF` (bordes), `#5B6577` (texto secundario).
+  - Semánticos: éxito `#1E7B4F`, advertencia `#B7791F`, peligro `#B42318`, información `#1D4E89`.
+  - Contraste mínimo AA (4,5:1) en texto.
+- Escala tipográfica (títulos de página, de tarjeta y texto), espaciado basado en 4 px,
+  radios de 8 px en tarjetas y 6 px en controles, y una sola sombra suave.
+- Estados de botón (hover, foco visible, deshabilitado, cargando con spinner).
+- Estilo único para tablas, tarjetas, badges, modales y toasts.
+- `prefers-reduced-motion`: sin animaciones para quien lo pida.
+
+## 4. Identidad y textos (decisión del responsable: sin logo oficial)
+
+- **No** uses `public/espe.jpeg` ni ningún escudo o logotipo de la ESPE. No se versiona ni se despliega.
+- Marca del sistema: **"Sistema de Gestión Académica"**, con un monograma propio (por ejemplo,
+  un SVG inline simple con "SGA" o un ícono `bi-mortarboard`) en el login y el sidebar.
+- Atribución discreta en el pie del login y del layout: **"Desarrollado por Person Technologies"**,
+  con enlace a https://dc.persontechnologys.com/ (`rel="noopener"`, `target="_blank"`).
+- **Elimina** de la interfaz "demo", "Demostración técnica", "Sistema de demostración" y
+  "no es un documento/sistema oficial".
+- **Sustitúyelos** solo donde haga falta veracidad, con texto sobrio y positivo:
+  - Pie del reporte: "Reporte generado por el Sistema de Gestión Académica el dd/mm/aaaa hh:mm por <usuario>."
+  - No afirmes en ningún sitio que el sistema o el reporte son oficiales, aprobados o emitidos por la ESPE.
+- El encabezado del reporte conserva "UNIVERSIDAD DE LAS FUERZAS ARMADAS - ESPE" como **dato
+  del contexto académico**, en texto y sin escudo (CLAUDE.md §9).
+- Actualiza CLAUDE.md §9: cambia "generado por el sistema de demostración" por "generado por
+  el Sistema de Gestión Académica", y añade la decisión "identidad propia, sin logo oficial; atribución a Person Technologies".
+- Actualiza `APP_NAME` en `.env.example` a `"Sistema de Gestión Académica"`.
+
+## 5. Login (split screen)
+
+- **Columna izquierda** (≥ 992 px): fondo azul marino con un degradado sutil y un patrón
+  geométrico ligero en CSS o SVG (sin imágenes externas), el monograma, "Sistema de Gestión
+  Académica" y una frase breve sobre la gestión de calificaciones. En móviles se reduce a una cabecera compacta.
+- **Columna derecha:** "Bienvenido", "Ingresa tus credenciales para continuar", correo,
+  contraseña con botón mostrar/ocultar (`aria-label` y `aria-pressed`), "Recordarme",
+  botón con spinner y deshabilitado al enviar, y errores del servidor (`@error`) visibles.
+  El error de inactivo y el de demasiados intentos deben leerse bien.
+- No cambies `LoginController` ni `LoginRequest`.
+
+## 6. Layout autenticado: sidebar + topbar
+
+- Un **componente Blade** por pieza: `x-layout.sidebar`, `x-layout.topbar`, `x-layout.breadcrumbs`,
+  `x-ui.toast-stack`, `x-ui.confirm-modal`, `x-ui.empty-state`, `x-ui.status-badge`,
+  `x-ui.page-header` y `x-form.input` (reutiliza y sustituye los parciales actuales).
+- **Sidebar**, con secciones sin submenús (son pocas opciones):
+  - Administrador:
+    - *Inicio*.
+    - *Académico*: Períodos, Asignaturas, Ofertas (NRC).
+    - *Personas*: Estudiantes, Usuarios y docentes.
+    - *Calificaciones*: Reportes, Auditoría.
+  - Docente: *Inicio* (mis ofertas) y *Reportes*.
+  - Ítem activo resaltado, con `aria-current="page"`.
+  - Abajo: nombre, rol y "Cerrar sesión" (formulario POST con CSRF).
+  - Escritorio: fijo y contraíble a íconos. El estado se guarda en `localStorage`; en modo
+    contraído se muestran tooltips.
+  - Móvil (< 992 px): Offcanvas con botón hamburguesa; se cierra al navegar.
+- **Topbar:** título de la página, breadcrumbs y menú de usuario (nombre, rol, cerrar sesión). Nada más.
+- El menú se oculta por rol, pero **la autorización sigue en el servidor** (middleware y Policies).
+  Prueba que el docente no ve los enlaces de administración y que, aun así, recibe 403 si los visita.
+- `@media print`: sidebar, topbar, toasts y botones ocultos. El reporte se imprime igual que hoy.
+
+## 7. Dashboard con datos reales
+
+**Administrador:**
+- Tarjetas: Estudiantes activos, Docentes activos, Asignaturas activas, Ofertas del período
+  abierto, Matrículas y **Registros incompletos** (matrículas sin notas o con algún parcial NULL).
+  Calcúlalas con consultas agregadas (`count`, `whereNull`, `doesntHave`), no en PHP sobre colecciones.
+- Período abierto actual (código, descripción, fechas), con un estado vacío si no hay ninguno.
+- Ofertas recientes y "Actividad reciente": los últimos 5 registros de auditoría, con
+  `with('user', 'enrollment.student', 'enrollment.courseOffering')`.
+- Accesos rápidos: Nuevo estudiante, Nueva oferta y Reportes.
+
+**Docente:**
+- Tarjetas de sus ofertas con el NRC, la asignatura, el período con su estado, los matriculados y el
+  progreso "X de Y registros completos" (calculado en la consulta).
+- Botones "Calificaciones" (solo con el período abierto; en otro caso, "Ver") y "Reporte".
+
+No inventes datos. Prueba que el dashboard no genera N+1 (`preventLazyLoading` ya está activo).
+
+## 8. Listados y formularios
+
+- **Tablas:** encabezado diferenciado, filas cómodas, hover sutil, números alineados a la
+  derecha con `font-variant-numeric: tabular-nums`, badges de estado con texto (no solo color),
+  y acciones como botones de ícono con `aria-label` y tooltip. Usa `.table-responsive` y, en
+  móvil, oculta columnas secundarias con utilidades `d-none d-md-table-cell`. Estado vacío con
+  ícono, mensaje y acción principal. Paginación de Bootstrap 5, tal como está.
+- **Búsqueda y filtros:** en una barra de la tarjeta del listado, con "Limpiar" visible solo si hay filtros.
+- **Formularios:** agrupados en tarjetas o `fieldset` con título (Identificación institucional,
+  Datos personales, Acceso, Oferta…), `*` en los campos obligatorios, ayudas con `form-text`,
+  errores del servidor bajo cada campo, botón principal y "Cancelar" secundario, y spinner al guardar.
+- **Validación en el cliente:** solo complementaria. Bloquea el envío con campos vacíos u
+  obligatorios mal formados y marca `.is-invalid`. Nunca elimines ni relajes reglas del servidor.
+- **No conviertas los formularios en modales.** Los modales se usan solo para confirmar.
+
+## 9. Planilla de calificaciones (prioridad alta)
+
+- Conserva la estructura actual: un formulario por fila (atributo `form`) con su `version`
+  oculta. Es la base del bloqueo optimista (decisión 29).
+- Columnas: ID, Apellidos y nombres, 1P, 2P, 3P, Promedio /20, Total /60, Estado (badge con texto).
+  Bajo el título, una leyenda: "0 a 20, máx. 2 decimales · vacío = pendiente · aprobado con total ≥ 42,00".
+- Entrada: `inputmode="decimal"`, `pattern="^\d{1,2}([.,]\d{1,2})?$"`, `aria-label` con el
+  parcial y el estudiante. Fuera de rango o con más de dos decimales se marca `.is-invalid`
+  al instante, con un mensaje corto bajo la fila.
+- **Sin cálculo de total, promedio ni estado en JavaScript.** Esos valores vienen solo del
+  servidor (`GradeCalculator`, que es la única fuente de verdad). Tras guardar, la fila muestra el
+  resultado del servidor y un toast "Notas guardadas".
+- Las filas con cambios sin guardar se marcan con un indicador y un botón "Guardar" destacado.
+  Si hay filas modificadas, `beforeunload` avisa antes de salir de la página.
+- Enter dentro de una fila guarda esa fila. Tab recorre 1P → 2P → 3P → Guardar.
+- El período no abierto se muestra en modo solo lectura (inputs deshabilitados) con un aviso
+  claro. El conflicto de versión y los errores del servidor se muestran en la fila, como hoy.
+- La corrección del administrador: modal de confirmación que muestra los valores anteriores y
+  nuevos y el motivo antes de enviar. El motivo sigue siendo obligatorio en el servidor.
+
+## 10. Confirmaciones y notificaciones
+
+- **Un único modal de confirmación** (`x-ui.confirm-modal`) que se activa con atributos en el
+  formulario: `data-confirm-title`, `data-confirm-message` y `data-confirm-item` (el registro
+  afectado, escapado con `{{ }}`) y `data-confirm-variant="danger"`. Sin `confirm()` ni `alert()`
+  nativos. El botón de confirmar recibe el foco y Escape cancela.
+- **Toasts:**
+  - `session('status')` → éxito.
+  - `$errors->has('general')` → error.
+  - Errores de validación → toast "Revise los campos marcados" además de los mensajes en línea.
+  - Abajo a la derecha, con autocierre de 5 s (los de error no se cierran solos) y `role="status"` o `role="alert"`.
+- Rediseña también `resources/views/errors/*` (403, 404, 419, 429, 500, 503) con el mismo
+  sistema visual, sin trazas ni mensajes técnicos.
+
+## 11. Accesibilidad y responsive
+
+- Foco visible en todo, labels asociados, navegación completa por teclado (sidebar, modal, planilla),
+  y estados con texto además de color.
+- Sin scroll horizontal en 360, 768, 1024 y 1440 px, salvo dentro de `.table-responsive`.
+
+## 12. Pruebas y verificación (obligatorio)
+
+- `php artisan test` debe pasar completo al final de **cada** commit.
+- Algunas pruebas comprueban textos que cambiarán: "no es un documento oficial" (ReportTest),
+  "Iniciar sesión" (AuthenticationTest) y "el registro de notas está bloqueado" (TeacherGradingTest).
+  Actualiza **solo** esas aserciones al texto nuevo, con la misma intención. No elimines pruebas ni debilites aserciones.
+- Añade pruebas:
+  - El login y el layout no contienen "demo", "demostración" ni "oficial", y sí "Person Technologies".
+  - El docente no ve los enlaces de administración en el sidebar; el administrador sí.
+  - El pie del reporte contiene "generado por el Sistema de Gestión Académica".
+  - El dashboard del administrador muestra el conteo correcto de registros incompletos.
+  - `espe.jpeg` no se referencia en ninguna vista.
+  - No hay `{!!` en `resources/views`.
+- Verifica con `php artisan serve` y `curl` que las páginas principales responden 200 con
+  ambos roles, y que `bootstrap-icons.css` y sus fuentes, `app.css` y `app.js` cargan (200).
+- No puedes ver el navegador: pide al responsable capturas a 1440 px y 375 px del login, el
+  dashboard, la planilla y el reporte en vista de impresión, y ajusta según lo que vea.
+- Ejecuta `vendor/bin/pint` antes de cada commit.
+
+## 13. Entrega
+
+Al terminar:
+- Lista de commits, archivos principales y la biblioteca añadida (Bootstrap Icons, con su versión).
+- Decisiones registradas en CLAUDE.md §18.1.
+- Resultado real de las pruebas.
+- Qué no pudiste verificar.
+- Pasos para llevarlo a producción, **solo tras la aprobación del responsable**:
+  1. Fusionar `ui-redesign` en `main`.
+  2. `git checkout deploy && git merge main && git push && git checkout main && composer install`.
+  3. *Update from Remote* en cPanel.
+
+  No se cambian dependencias de Composer, así que el `vendor/` de `deploy` no se regenera.
