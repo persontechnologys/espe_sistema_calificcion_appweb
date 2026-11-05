@@ -29,7 +29,7 @@ class LayoutTest extends TestCase
     {
         $text = $this->visibleText($html);
 
-        $this->assertStringContainsString('person technologies', $text);
+        $this->assertStringContainsString('person technologys', $text);
         $this->assertStringContainsString('https://dc.persontechnologys.com/', $html);
         foreach (['demo', 'demostración', 'oficial'] as $word) {
             $this->assertStringNotContainsString($word, $text, "La interfaz no debe decir «{$word}».");

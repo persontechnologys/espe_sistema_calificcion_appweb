@@ -563,7 +563,7 @@ generado por el Sistema de Gestión Académica.
 
 Identidad propia, sin logo oficial: la interfaz usa la marca "Sistema de
 Gestión Académica" con un monograma propio y la atribución "Desarrollado
-por Person Technologies". El nombre de la universidad aparece solo como
+por Person Technologys". El nombre de la universidad aparece solo como
 dato del contexto académico en el encabezado del reporte, en texto.
 (Decisión del responsable, 2026-11-04; ver decisión 35.)
 
@@ -1101,7 +1101,7 @@ técnica, justificada y registrada). No cambian reglas académicas.
                                     Académica" con monograma SVG propio; sin
                                     logo de ESPE (`public/espe.jpeg` en
                                     `.gitignore`). Atribución a Person
-                                    Technologies. El título de la pestaña es
+                                    Technologys. El título de la pestaña es
                                     fijo y no depende de `APP_NAME`.
   36   Iconos                       Bootstrap Icons 1.13.2 local en
                                     `public/vendor/bootstrap-icons`: única
