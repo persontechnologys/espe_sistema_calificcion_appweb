@@ -231,17 +231,18 @@
         return null;
     }
 
-    function checkRow(row) {
+    function checkRow(row, onlyDirty) {
         const formId = row.dataset.gradeRow;
         const inputs = document.querySelectorAll('input.grade-input[form="' + formId + '"]');
         const messages = [];
         let dirty = false;
         inputs.forEach(function (input) {
+            if (input.value.trim() !== input.dataset.original) { dirty = true; }
+            if (onlyDirty) { return; }
             const err = partialError(input.value);
             input.classList.toggle('is-invalid', !!err);
             input.setAttribute('aria-invalid', err ? 'true' : 'false');
             if (err) { messages.push(input.dataset.label + ': ' + err + '.'); }
-            if (input.value.trim() !== input.dataset.original) { dirty = true; }
         });
         row.classList.toggle('is-dirty', dirty);
         if (dirty) { dirtyRows.add(formId); } else { dirtyRows.delete(formId); }
@@ -251,7 +252,7 @@
             btn.classList.toggle('btn-outline-primary', !dirty);
         }
         const box = document.getElementById('msg-' + formId);
-        if (box) {
+        if (box && !onlyDirty) {
             const cell = box.querySelector('[data-client-messages]');
             cell.textContent = messages.join(' ');
             const hasServer = !!box.querySelector('[data-server-messages]');
@@ -261,6 +262,9 @@
     }
 
     if (sheet) {
+        // Tras un guardado rechazado, la fila conserva lo escrito: se marca como "Sin guardar".
+        sheet.querySelectorAll('tr[data-grade-row]').forEach(function (row) { checkRow(row, true); });
+
         sheet.addEventListener('input', function (e) {
             if (e.target.matches('input.grade-input')) {
                 const row = rowOf(e.target);
