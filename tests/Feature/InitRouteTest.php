@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Http\Middleware\SecurityHeaders;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Support\Facades\Artisan;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -55,7 +57,18 @@ class InitRouteTest extends TestCase
             ->assertOk()
             ->assertSee('Inicialización completa');
 
-        $this->assertSame(['optimize:clear', 'migrate', 'route:cache', 'view:cache'], $called);
+        $this->assertSame(['config:clear', 'migrate', 'optimize:clear', 'route:cache', 'view:cache'], $called);
+    }
+
+    #[Test]
+    public function no_usa_sesion_para_funcionar_sin_tablas(): void
+    {
+        $route = app('router')->getRoutes()->getByName('init');
+        $middleware = app('router')->gatherRouteMiddleware($route);
+
+        $this->assertNotContains(StartSession::class, $middleware);
+        $this->assertContains(SecurityHeaders::class, $middleware);
+        $this->assertNotSame('database', config('cache.limiter'));
     }
 
     #[Test]

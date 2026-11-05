@@ -28,9 +28,12 @@ class InitController extends Controller
 
         abort_if(strlen($expected) < self::MIN_TOKEN_LENGTH || ! hash_equals($expected, $given), 404);
 
+        // Orden: migrar antes de optimize:clear, que limpia la caché en base de datos
+        // y fallaría si la tabla cache aún no existe.
         $steps = [
-            ['optimize:clear', []],
+            ['config:clear', []],
             ['migrate', ['--force' => true]],
+            ['optimize:clear', []],
         ];
 
         // Datos de demostración solo si se piden; DemoSeeder no hace nada si ya hay usuarios.
