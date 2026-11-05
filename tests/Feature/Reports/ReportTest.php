@@ -67,7 +67,19 @@ class ReportTest extends TestCase
             ->assertSee('MATRIZ')
             ->assertSee('CARLOS ANDRADE')
             ->assertSee('D00000101')
-            ->assertSee('no es un documento oficial');
+            ->assertSee('Reporte generado por el Sistema de Gestión Académica');
+    }
+
+    #[Test]
+    public function el_pie_del_reporte_indica_que_lo_genero_el_sistema_sin_afirmar_que_es_oficial(): void
+    {
+        $html = $this->actingAs($this->teacher)->get("/reports/offerings/{$this->offering->id}")->assertOk()->getContent();
+
+        $footer = mb_strtolower(strip_tags(substr($html, strpos($html, '<footer class="small">'))));
+        $this->assertStringContainsString('generado por el sistema de gestión académica', $footer);
+        $this->assertStringContainsString('carlos andrade', $footer);
+        $this->assertStringNotContainsString('oficial', mb_strtolower(strip_tags($html)));
+        $this->assertStringNotContainsString('demostración', mb_strtolower(strip_tags($html)));
     }
 
     #[Test]

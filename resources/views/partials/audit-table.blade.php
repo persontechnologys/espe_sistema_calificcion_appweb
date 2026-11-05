@@ -1,31 +1,31 @@
 @php($fmt = fn ($values, $key) => $values === null ? '—' : \App\Services\Grades\GradeCalculator::formatCents(isset($values[$key]) ? \App\Services\Grades\GradeCalculator::toCents($values[$key]) : null))
 <div class="table-responsive">
-<table class="table table-sm align-middle mb-0">
-    <thead class="table-light"><tr>
+<table class="table table-sm table-hover align-middle">
+    <thead><tr>
         <th>Fecha y hora</th><th>Usuario</th><th>Operación</th>
         @if ($showEnrollment ?? true)<th>Estudiante</th><th>NRC</th>@endif
-        <th>Anterior (1P / 2P / 3P)</th><th>Nuevo (1P / 2P / 3P)</th><th>Motivo</th>
+        <th class="num">Anterior (1P / 2P / 3P)</th><th class="num">Nuevo (1P / 2P / 3P)</th><th>Motivo</th>
     </tr></thead>
     <tbody>
     @forelse ($logs as $log)
         <tr>
-            <td class="text-nowrap">{{ $log->created_at->format('d/m/Y H:i:s') }}</td>
+            <td class="text-nowrap tabular">{{ $log->created_at->format('d/m/Y H:i:s') }}</td>
             <td>{{ $log->user->name }}</td>
-            <td><span class="badge {{ $log->operation === \App\Enums\AuditOperation::Correccion ? 'text-bg-warning' : 'text-bg-info' }}">{{ $log->operation->label() }}</span></td>
+            <td><x-ui.status-badge :status="$log->operation" /></td>
             @if ($showEnrollment ?? true)
-                <td>{{ $log->enrollment->student->institutional_id }}</td>
-                <td>{{ $log->enrollment->courseOffering->nrc }}</td>
+                <td class="text-nowrap">{{ $log->enrollment->student->institutional_id }}</td>
+                <td class="tabular">{{ $log->enrollment->courseOffering->nrc }}</td>
             @endif
-            <td class="text-nowrap">
+            <td class="num text-nowrap">
                 @if ($log->old_values === null) <span class="text-muted">(sin registro)</span>
                 @else {{ $fmt($log->old_values, 'partial_1') }} / {{ $fmt($log->old_values, 'partial_2') }} / {{ $fmt($log->old_values, 'partial_3') }}
                 @endif
             </td>
-            <td class="text-nowrap">{{ $fmt($log->new_values, 'partial_1') }} / {{ $fmt($log->new_values, 'partial_2') }} / {{ $fmt($log->new_values, 'partial_3') }}</td>
+            <td class="num text-nowrap fw-semibold">{{ $fmt($log->new_values, 'partial_1') }} / {{ $fmt($log->new_values, 'partial_2') }} / {{ $fmt($log->new_values, 'partial_3') }}</td>
             <td>{{ $log->reason ?? '—' }}</td>
         </tr>
     @empty
-        <tr><td colspan="8" class="text-center text-muted py-3">Sin cambios registrados.</td></tr>
+        <x-ui.empty-row :colspan="($showEnrollment ?? true) ? 8 : 6" icon="bi-clock-history" title="Sin cambios registrados" />
     @endforelse
     </tbody>
 </table>

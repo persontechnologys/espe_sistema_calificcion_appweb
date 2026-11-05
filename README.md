@@ -30,7 +30,8 @@ Reglas de calificación (CLAUDE.md §4):
 - PHP **8.4** o superior, con las extensiones `pdo_pgsql` (local) o `pdo_mysql` (producción), `mbstring`, `openssl`, `tokenizer`, `xml`, `ctype`, `fileinfo` e `intl`.
 - Composer 2.
 - PostgreSQL 13 o superior en local, o MySQL **8.0.16** o superior en producción (las restricciones `CHECK` lo requieren).
-- No se necesita Node.js: Bootstrap 5 se sirve desde `public/vendor/bootstrap`.
+- No se necesita Node.js: Bootstrap 5.3.8 y Bootstrap Icons 1.13.2 se sirven desde `public/vendor/` (sin CDN).
+  El CSS y el JavaScript propios están en `public/css/app.css` y `public/js/app.js`.
 
 `composer.json` fija `config.platform.php = 8.4.0` para que las dependencias sean compatibles con el hosting.
 

@@ -1,37 +1,15 @@
 @extends('layouts.app')
 @section('title', 'Reporte NRC '.$offering->nrc)
-@push('styles')
-<style>
-    .report { background: #fff; max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem; border: 1px solid #dee2e6; }
-    .report h1 { font-size: 1.15rem; letter-spacing: .02em; }
-    .report h2 { font-size: 1rem; font-weight: 600; }
-    .report .meta th { width: 9rem; font-weight: 600; white-space: nowrap; }
-    .report .meta td, .report .meta th { padding: .15rem .5rem; border: 0; }
-    .report table.grades th, .report table.grades td { padding: .3rem .45rem; font-size: .9rem; }
-    .report table.grades thead th { background: #e9ecef; text-align: center; vertical-align: middle; }
-    .num { text-align: right; font-variant-numeric: tabular-nums; }
-    .st-APROBADO { color: #146c43; font-weight: 600; }
-    .st-REPROBADO { color: #b02a37; font-weight: 600; }
-    .st-INCOMPLETO { color: #997404; font-weight: 600; }
-    @media print {
-        @page { size: A4 portrait; margin: 12mm; }
-        .report { border: 0; padding: 0; max-width: none; }
-        .report table.grades thead th { background: #e9ecef !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-        .report tr { page-break-inside: avoid; }
-    }
-</style>
-@endpush
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3 no-print">
-    <a href="{{ route('reports.index') }}" class="btn btn-link px-0">&laquo; Volver a reportes</a>
-    <button type="button" class="btn btn-success" onclick="window.print()">Imprimir / Guardar como PDF</button>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 no-print">
+    <a href="{{ route('reports.index') }}" class="btn btn-link px-0 text-decoration-none"><i class="bi bi-arrow-left me-1" aria-hidden="true"></i>Volver a reportes</a>
+    <button type="button" class="btn btn-primary" data-print><i class="bi bi-printer me-1" aria-hidden="true"></i>Imprimir / Guardar como PDF</button>
 </div>
 
 <article class="report">
     <header class="text-center mb-3">
         <div class="fw-semibold">UNIVERSIDAD DE LAS FUERZAS ARMADAS - ESPE</div>
         <h1 class="mb-1">REPORTE DE CALIFICACIONES DE ESTUDIANTES</h1>
-        <div class="small text-muted">Generado por el sistema de demostración · no es un documento oficial</div>
     </header>
 
     <table class="table table-sm meta mb-3">
@@ -67,7 +45,7 @@
                 <td class="st-{{ $r->status->value }}">{{ $r->status->value }}</td>
             </tr>
         @empty
-            <tr><td colspan="9" class="text-center text-muted">Sin estudiantes matriculados.</td></tr>
+            <tr><td colspan="9" class="text-center text-muted py-3">Sin estudiantes matriculados.</td></tr>
         @endforelse
         </tbody>
     </table>
@@ -85,7 +63,7 @@
             El promedio (total / 3) se redondea a dos decimales solo para mostrarlo; el estado se decide sobre el total exacto.
             «—» indica parcial pendiente; un registro con parciales pendientes es INCOMPLETO.
         </p>
-        <p class="mb-0 text-muted">Generado el {{ $generatedAt->format('d/m/Y H:i') }} por {{ auth()->user()->name }}.</p>
+        <p class="mb-0 text-muted">Reporte generado por el Sistema de Gestión Académica el {{ $generatedAt->format('d/m/Y H:i') }} por {{ auth()->user()->name }}.</p>
     </footer>
 </article>
 @endsection

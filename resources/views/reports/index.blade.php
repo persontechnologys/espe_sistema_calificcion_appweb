@@ -1,53 +1,47 @@
 @extends('layouts.app')
 @section('title', 'Reportes')
 @section('content')
-<h1 class="h3 mb-3">Reporte de calificaciones</h1>
-<form method="GET" class="row g-2 align-items-end mb-3">
-    <div class="col-md-3">
-        <label class="form-label small" for="academic_period_id">Período</label>
-        <select id="academic_period_id" name="academic_period_id" class="form-select">
-            <option value="">Todos</option>
+<x-ui.page-header title="Reporte de calificaciones" subtitle="Filtre por período, asignatura o NRC y abra el reporte imprimible de cada oferta." />
+
+<div class="card">
+    <x-ui.filter-bar search="nrc" placeholder="NRC" search-label="Buscar por NRC">
+        <select id="academic_period_id" name="academic_period_id" class="form-select" aria-label="Filtrar por período">
+            <option value="">Todos los períodos</option>
             @foreach ($periods as $p)
                 <option value="{{ $p->id }}" @selected((string) request('academic_period_id') === (string) $p->id)>{{ $p->label }}</option>
             @endforeach
         </select>
-    </div>
-    <div class="col-md-4">
-        <label class="form-label small" for="subject_id">Asignatura</label>
-        <select id="subject_id" name="subject_id" class="form-select">
-            <option value="">Todas</option>
+        <select id="subject_id" name="subject_id" class="form-select" aria-label="Filtrar por asignatura">
+            <option value="">Todas las asignaturas</option>
             @foreach ($subjects as $s)
                 <option value="{{ $s->id }}" @selected((string) request('subject_id') === (string) $s->id)>{{ $s->code }} · {{ $s->name }}</option>
             @endforeach
         </select>
+    </x-ui.filter-bar>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead><tr>
+                <th>NRC</th><th>Asignatura</th><th class="d-none d-md-table-cell">Docente</th><th class="d-none d-sm-table-cell">Período</th>
+                <th class="num">Matriculados</th><th class="text-end"><span class="visually-hidden">Acciones</span></th>
+            </tr></thead>
+            <tbody>
+            @forelse ($offerings as $o)
+                <tr>
+                    <td class="cell-strong tabular">{{ $o->nrc }}</td>
+                    <td>{{ $o->subject->name }}<span class="cell-sub">{{ $o->subject->code }}</span></td>
+                    <td class="d-none d-md-table-cell">{{ $o->teacher->name }}</td>
+                    <td class="d-none d-sm-table-cell text-nowrap">{{ $o->academicPeriod->code }} <x-ui.status-badge :status="$o->academicPeriod->status" /></td>
+                    <td class="num">{{ $o->enrollments_count }}</td>
+                    <td class="text-end">
+                        <a class="btn btn-sm btn-outline-primary text-nowrap" href="{{ route('reports.show', $o) }}"><i class="bi bi-file-earmark-text me-1" aria-hidden="true"></i>Ver reporte</a>
+                    </td>
+                </tr>
+            @empty
+                <x-ui.empty-row colspan="6" icon="bi-file-earmark-text" title="Sin resultados" message="No hay ofertas que coincidan con el filtro." />
+            @endforelse
+            </tbody>
+        </table>
     </div>
-    <div class="col-md-2">
-        <label class="form-label small" for="nrc">NRC</label>
-        <input id="nrc" name="nrc" value="{{ request('nrc') }}" class="form-control">
-    </div>
-    <div class="col-md-3 d-flex gap-2">
-        <button class="btn btn-success" type="submit">Filtrar</button>
-        @if (request()->query())<a class="btn btn-link" href="{{ route('reports.index') }}">Limpiar</a>@endif
-    </div>
-</form>
-<div class="card shadow-sm"><div class="table-responsive">
-<table class="table table-hover align-middle mb-0">
-    <thead class="table-light"><tr><th>Período</th><th>NRC</th><th>Asignatura</th><th>Docente</th><th class="text-end">Matriculados</th><th></th></tr></thead>
-    <tbody>
-    @forelse ($offerings as $o)
-        <tr>
-            <td>{{ $o->academicPeriod->code }} <span class="badge {{ $o->academicPeriod->status->badgeClass() }}">{{ $o->academicPeriod->status->label() }}</span></td>
-            <td><strong>{{ $o->nrc }}</strong></td>
-            <td>{{ $o->subject->code }} · {{ $o->subject->name }}</td>
-            <td>{{ $o->teacher->name }}</td>
-            <td class="text-end">{{ $o->enrollments_count }}</td>
-            <td class="text-end"><a class="btn btn-sm btn-outline-success" href="{{ route('reports.show', $o) }}">Ver reporte</a></td>
-        </tr>
-    @empty
-        <tr><td colspan="6" class="text-center text-muted py-4">No hay ofertas que coincidan con el filtro.</td></tr>
-    @endforelse
-    </tbody>
-</table>
-</div></div>
-<div class="mt-3">{{ $offerings->links() }}</div>
+    <div class="card-footer-pagination">{{ $offerings->links() }}</div>
+</div>
 @endsection
