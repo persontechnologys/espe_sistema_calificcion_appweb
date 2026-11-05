@@ -25,3 +25,6 @@ _ide_helper.php
 Homestead.json
 Homestead.yaml
 Thumbs.db
+
+# Logotipo oficial: no se versiona ni se despliega (decisión del responsable).
+/public/espe.jpeg
