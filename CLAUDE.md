@@ -1145,6 +1145,15 @@ técnica, justificada y registrada). No cambian reglas académicas.
   44   Corrección del admin         Modal de vista previa con valores
                                     anteriores, nuevos y motivo antes de
                                     enviar; el servidor vuelve a validar.
+  45   Paleta verde                 A pedido del responsable (2026-11-04) la
+                                    paleta pasa de azul neutro a verde
+                                    (sidebar `#0B3B2C`, primario `#1A6B47`),
+                                    sin usar el logotipo. Contraste AA
+                                    verificado (≥ 5,6:1). El badge
+                                    "Registro" sigue azul para no confundirse
+                                    con APROBADO. Corrige además el fondo del
+                                    sidebar en escritorio: Bootstrap pone
+                                    `transparent !important` a `.offcanvas-lg`.
 
 ## 19. Criterios de aceptación global
 
